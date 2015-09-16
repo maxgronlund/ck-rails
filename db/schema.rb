@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150916070729) do
     t.integer  "user_country"
     t.integer  "user_state"
     t.integer  "user_city"
+    t.string   "user_role"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

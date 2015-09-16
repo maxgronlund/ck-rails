@@ -1,0 +1,25 @@
+<body class="gray-bg">
+	<div class="middle-box text-center loginscreen animated fadeInDown">
+		<div>
+			<div class="logo-name">
+				C|K
+			</div>
+			<%= form_for(:session , url: '/auth' , html: {class: "m-t" }) do |f| %>
+				<div class="form-group">
+					<%= f.email_field :email , class: 'form-control', placeholder: 'email' %>
+				</div>
+				<div class="form-group">
+					<%= f.password_field :password , class: 'form-control', placeholder: 'password' %>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary block full-width m-b">Login</button>
+				</div>
+				<a href="#">Forgot Password?</a>
+				<p class="text-muted">Don't have an account?</p>
+				<div class="form-group">
+					<a class="btn btn-white block full-width m-b">Create an account</a>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</body>
