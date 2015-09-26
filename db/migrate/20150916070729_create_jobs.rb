@@ -7,13 +7,13 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :job_salary
       t.integer :job_category
       t.integer :job_creator
-      t.integer :job_country
+      t.integer :job_country , :null => true
       t.integer :job_state
       t.integer :job_city
       t.datetime :job_start
       t.datetime :job_valid
-      t.boolean :job_is_fake
-      t.string :job_status
+      t.boolean :job_is_fake , :null => true
+      t.string :job_status , :null => true
       t.timestamps null: false
     end
   end

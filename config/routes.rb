@@ -2,10 +2,16 @@ Rails.application.routes.draw do
 
   root 'home#landing'
   post '/auth' => 'session#auth'
+  get '/logout' => 'session#destroy'
 
   # ADMIN ROLE ROUTES
 
   get '/admin' => 'admin#dashboard'
+  get '/admin/jobs' => 'job#list'
+  get '/admin/jobs/new' => 'job#new'
+  post '/admin/jobs/submit' => 'job#submit'
+
+  get '/ajax/citylist/:state' => 'ajax#citylist'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

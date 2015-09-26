@@ -1,7 +1,7 @@
 class CreatePayments < ActiveRecord::Migration
   def change
     create_table :payments do |t|
-      t.string :payment_hash_id
+      t.string :payment_hash_id , :null => true
       t.integer :payment_job
       t.string :payment_status
       t.integer :payment_price

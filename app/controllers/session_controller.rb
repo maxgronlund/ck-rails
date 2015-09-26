@@ -12,6 +12,11 @@ class SessionController < ApplicationController
 				redirect_to '/home'
 			end
 		end	
-	end	
+	end
+
+	def destroy
+		reset_session
+		redirect_to '/'
+	end
 
 end
