@@ -22,13 +22,33 @@
 							<th>More</th>
 						</thead>
                         <tbody>
-                            <% @jobs.each do |jb| %>
-                                <tr>
-                                  <td><%= jb.job_name %></td>
-                                  <td></td>
-                                  <td><%= jb.job_start %></td>
-                                  <td><%= jb.job_valid %></td>
-                                </tr>
+                            <% @alljobs.each do |ujob| %>
+                                <% ujob.jobs.each do |jb| %>
+                                    <tr>
+                                      <td><%= jb.job_name %></td>
+                                      <td><%= ujob.user_name %></td>
+                                      <td class="time"><%= jb.job_start.to_date %></td>
+                                      <td><%= jb.job_valid.to_date %></td>
+                                      <td>
+                                        <div class="dropdown">
+                                          <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Action
+                                            <span class="caret"></span>
+                                          </button>
+                                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="/admin/jobs/<%= jb.job_hash_id %>">Details</a></li>
+                                                <% if jb.payment.payment_status == 'unpaid' %>
+                                                    <li class=""><a href="/admin/jobs/edit/<%= jb.job_hash_id %>">Edit</a></li>
+                                                    <li><a href="/admin/jobs/delete/<%= jb.job_hash_id %>">Delete</a></li>
+                                                <% else %>
+                                                    <li class="disabled"><a href="#">Edit</a></li>
+                                                    <li class="disabled"><a href="#">Delete</a></li>
+                                                <% end %>
+                                          </ul>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                <% end %>
                             <% end %>
                         </tbody>
 					</table>
@@ -37,3 +57,9 @@
 		</div>
 	</div>
 </div>
+
+<% content_for :js do %>
+    <script type="text/javascript">
+      console.log($('.time').val());
+    </script>
+<% end %>

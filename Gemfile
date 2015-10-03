@@ -27,6 +27,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'hashids'
 gem 'chronic'
+gem 'stamp'
+gem 'time_difference', '~> 0.4.2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

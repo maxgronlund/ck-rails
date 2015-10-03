@@ -5,7 +5,8 @@ class JobController < ApplicationController
 		@current = User.find(session[:user_id])
 		@section = "Jobs"
 		@active = "jobs"
-		@jobs = Job.all
+		@alljobs = User.all
+		@chronic = Chronic
 	end
 
 	def new
@@ -24,11 +25,11 @@ class JobController < ApplicationController
 			job_description: params[:job][:description],
 			job_salary: params[:job][:salary],
 			job_category: params[:job][:category],
-			job_start: params[:job][:start],
-			job_valid: params[:job][:valid],
+			job_start: Chronic.parse(params[:job][:start]),
+			job_valid: Chronic.parse(params[:job][:valid]),
 			job_state: params[:job][:state],
 			job_city: params[:job][:city],
-			job_creator: session[:user_id],
+			user_id: session[:user_id],
 			job_is_fake: false,
 			job_status: 'OK',
 		});
@@ -37,9 +38,34 @@ class JobController < ApplicationController
 		job.job_hash_id = hashid.encode(currentJob.id)
 		job.save;
 
+		diff = TimeDifference.between(job.job_start , job.job_valid).in_days
+		price = diff*5000
+
+		currentPayment = Payment.create({
+				job_id: currentJob.id,
+				payment_status: 'unpaid',
+				payment_price: price,
+				payment_days: diff,
+				payment_creator: session[:user_id],
+				payment_approval: false
+		})
+
+		pay = Payment.find(currentPayment.id)
+		pay.payment_hash_id = hashid.encode(currentPayment.id)
+		pay.save
+
 		redirect_to('/admin/jobs')
 
 		# redirect_to('/admin/jobs')
+	end
+
+	def test
+		# job = Job.find(3)
+		# time = TimeDifference.between(job.job_start , job.job_valid).in_days
+		# time = job.job_start.to_date
+		# render :json => time
+		@current = User.find(session[:user_id])
+		@users = User.all
 	end
 
 end

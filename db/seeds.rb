@@ -140,85 +140,85 @@ Country.create({
 
 State.create({
                  state_name: 'Kalimantan Timur',
-                 state_country: 1
+                 country_id: 1
              })
 
 State.create({
 	state_name: 'Kalimantan Selatan',
-	state_country: 1
+	country_id: 1
 })
 State.create({
                  state_name: 'Kalimantan Tengah',
-                 state_country: 1
+                 country_id: 1
              })
 State.create({
                  state_name: 'Jawa Barat',
-                 state_country: 1
+                 country_id: 1
              })
 State.create({
                  state_name: 'Jawa Timur',
-                 state_country: 1
+                 country_id: 1
              })
 State.create({
                  state_name: 'Jawa Tengah',
-                 state_country: 1
+                 country_id: 1
              })
 
 City.create({
                 city_name: 'Balikapan',
-                city_state: 1
+                state_id: 1
             })
 City.create({
                 city_name: 'Samarinda',
-                city_state: 1
+                state_id: 1
             })
 
 City.create({
 	city_name: 'Banjarmasin',
-	city_state: 2
+	state_id: 2
 })
 City.create({
                 city_name: 'Banjar Baru',
-                city_state: 2
+                state_id: 2
             })
 City.create({
                 city_name: 'Palangkaraya',
-                city_state: 3
+                state_id: 3
             })
 City.create({
                 city_name: 'Pangkalan Bun',
-                city_state: 3
+                state_id: 3
             })
 City.create({
                 city_name: 'Bandung',
-                city_state: 4
+                state_id: 4
             })
 City.create({
                 city_name: 'Subang',
-                city_state: 4
+                state_id: 4
             })
 City.create({
                 city_name: 'Cirebon',
-                city_state: 4
+                state_id: 4
             })
 City.create({
                 city_name: 'Surabaya',
-                city_state: 5
+                state_id: 5
             })
 City.create({
                 city_name: 'Malang',
-                city_state: 5
+                state_id: 5
             })
 City.create({
                 city_name: 'Blitar',
-                city_state: 5
+                state_id: 5
             })
 City.create({
                 city_name: 'Solo',
-                city_state: 6
+                state_id: 6
             })
 City.create({
                 city_name: 'Semarang',
-                city_state: 6
+                state_id: 6
             })
 

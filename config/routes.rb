@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   get '/ajax/citylist/:state' => 'ajax#citylist'
 
+  get '/db' => 'job#test'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

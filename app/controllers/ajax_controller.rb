@@ -2,7 +2,7 @@ class AjaxController < ApplicationController
 
   def citylist
     stateid = params[:state]
-    @cities = City.where(:city_state => stateid)
+    @cities = City.where(:state_id => stateid)
     @response = "<select class=\"form-control\" name\"job[city]\">"
 
     @cities.each do |c|

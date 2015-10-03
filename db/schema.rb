@@ -18,13 +18,16 @@ ActiveRecord::Schema.define(version: 20150926044428) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "category_name"
+    t.integer  "job_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
+  add_index "categories", ["job_id"], name: "index_categories_on_job_id", using: :btree
+
   create_table "cities", force: :cascade do |t|
     t.string   "city_name"
-    t.integer  "city_state"
+    t.integer  "state_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150926044428) do
     t.datetime "job_valid"
     t.boolean  "job_is_fake"
     t.string   "job_status"
+    t.integer  "user_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -62,23 +66,30 @@ ActiveRecord::Schema.define(version: 20150926044428) do
     t.integer  "payment_creator"
     t.boolean  "payment_approval"
     t.datetime "payment_approved_at"
+    t.datetime "payment_paid_at"
     t.string   "payment_method"
+    t.integer  "job_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
 
+  add_index "payments", ["job_id"], name: "index_payments_on_job_id", using: :btree
+
   create_table "salaries", force: :cascade do |t|
     t.integer  "salary_code"
     t.string   "salary_string"
+    t.integer  "job_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
+  add_index "salaries", ["job_id"], name: "index_salaries_on_job_id", using: :btree
+
   create_table "states", force: :cascade do |t|
     t.string   "state_name"
-    t.integer  "state_country"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "country_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

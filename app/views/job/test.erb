@@ -1,0 +1,6 @@
+<% @users.each do |u| %>
+    <%= u.user_name %>
+    <% u.jobs.each do |j| %>
+        <%= j.payment.payment_status %>
+    <% end %>
+<% end %>
