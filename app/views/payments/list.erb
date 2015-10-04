@@ -69,9 +69,11 @@
               <table class="table table-stripped">
                 <thead>
                 <th>Payment ID</th>
+                <th>Issued</th>
                 <th>Job Name</th>
                 <th>Issuer</th>
                 <th>Price</th>
+                <th>Status</th>
                 <th>More</th>
                 </thead>
                 <tbody>
@@ -79,9 +81,17 @@
                     <% usr.jobs.each do |jbs| %>
                         <tr>
                           <td><%= jbs.payment.payment_hash_id %></td>
+                          <td class="time"><%= jbs.payment.created_at.to_date %></td>
                           <td><%= jbs.job_name %></td>
                           <td><%= usr.user_name %></td>
                           <td><%= jbs.payment.payment_price %></td>
+                          <% if jbs.payment.payment_status == 'paid' %>
+                            <td><span class="label label-success">Paid</span></td>
+                          <% elsif jbs.payment.payment_status == 'unpaid' %>
+                              <td><span class="label label-warning">Unpaid</span></td>
+                          <% elsif jbs.payment.payment_status == 'free' %>
+                              <td><span class="label label-information">Free</span></td>
+                          <% end %>
                           <td>
                             <div class="dropdown">
                               <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -131,6 +141,7 @@
                   <table class="table table-stripped">
                     <thead>
                     <th>Payment ID</th>
+                    <th>Issued</th>
                     <th>Job Name</th>
                     <th>Issuer</th>
                     <th>Price</th>
@@ -143,15 +154,32 @@
                 </div>
             </div>
             <div id="search2" class="tab-pane">
-              <form class="form form-horizontal">
-                <div class="form-group">
-                  <label class="control-label col-md-1">Payment ID</label>
-                  <div class="col-md-4">
-                    <input class="form-control">
+              <div class="row">
+                <form class="form form-horizontal">
+                  <div class="form-group">
+                    <label class="control-label col-md-1">Payment ID</label>
+                    <div class="col-md-4">
+                      <input class="form-control" id="payid">
+                    </div>
+                    <a class="btn btn-primary col-md-1" onclick="findPayById()">Search</a>
                   </div>
-                  <a class="btn btn-primary col-md-1">Search</a>
-                </div>
-              </form>
+                </form>
+              </div>
+              <div class="row">
+                <table class="table table-stripped">
+                  <thead>
+                  <th>Payment ID</th>
+                  <th>Issued</th>
+                  <th>Job Name</th>
+                  <th>Issuer</th>
+                  <th>Price</th>
+                  <th>More</th>
+                  </thead>
+                  <tbody id="idresult">
+
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -173,7 +201,34 @@
 
 <% content_for :js do %>
     <script src="/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/bower_components/moment/moment.js"></script>
     <script type="text/javascript">
         $('.datepicker').datepicker({});
+        $('.time').each(function(){
+            var Tformat = moment($(this).text()).format('LL');
+            $(this).text(Tformat);
+        });
+
+
+        function findPayById(){
+            var ids = $('#payid').val();
+            $.ajax({
+                url: "/ajax/payment/id/"+ids,
+                type:'GET',
+                dataType: 'json',
+                success : function(output_string){
+                    console.log(output_string);
+                    $('#idresult').html(output_string);
+                    $('.time').each(function(){
+                        var Tformat = moment($(this).text()).format('LL');
+                        $(this).text(Tformat);
+                    });
+                },
+                error : function(err){
+                    console.log('error');
+                    console.log(err.responseText);
+                }
+            });
+        }
     </script>
 <% end %>
