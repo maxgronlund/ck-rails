@@ -28,10 +28,10 @@
                                       <td><%= jb.job_name %></td>
                                       <td><%= ujob.user_name %></td>
                                       <td class="time"><%= jb.job_start.to_date %></td>
-                                      <td><%= jb.job_valid.to_date %></td>
+                                      <td class="time"><%= jb.job_valid.to_date %></td>
                                       <td>
                                         <div class="dropdown">
-                                          <button class="btn btn-white dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                          <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                             Action
                                             <span class="caret"></span>
                                           </button>
@@ -59,7 +59,11 @@
 </div>
 
 <% content_for :js do %>
+    <script src="/bower_components/moment/moment.js"></script>
     <script type="text/javascript">
-      console.log($('.time').val());
+      $('.time').each(function(){
+          var Tformat = moment($(this).text()).format('LL');
+          $(this).text(Tformat);
+      });
     </script>
 <% end %>

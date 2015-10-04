@@ -1,4 +1,6 @@
 class JobController < ApplicationController
+	include SessionHelper
+	before_action :ensureAdmin
 	layout "admin"
 
 	def list
@@ -57,6 +59,32 @@ class JobController < ApplicationController
 		redirect_to('/admin/jobs')
 
 		# redirect_to('/admin/jobs')
+	end
+
+	def edit
+		ids = params[:ids]
+		@currentJob = Job.where(:job_hash_id => ids).first
+		@current = User.find(session[:user_id])
+		@categories = Category.all.order(:category_name)
+		@salaries = Salary.all
+		@states = State.all
+		@cities = City.where(:state_id => @currentJob.job_state)
+	end
+
+	def update
+		ids = params[:ids]
+		@currentJob = Job.where(:job_hash_id => ids).first
+		@currentJob.job_name = params[:job][:name]
+		@currentJob.job_description = params[:job][:description]
+		@currentJob.job_category = params[:job][:category]
+		@currentJob.job_salary = params[:job][:salary]
+		@currentJob.job_state = params[:job][:state]
+		@currentJob.job_city = params[:job][:city]
+		@currentJob.job_start = Chronic.parse(params[:job][:start])
+		@currentJob.job_valid = Chronic.parse(params[:job][:valid])
+		@currentJob.save
+
+		redirect_to '/admin/jobs'
 	end
 
 	def test

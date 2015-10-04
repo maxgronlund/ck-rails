@@ -7,9 +7,14 @@ Rails.application.routes.draw do
   # ADMIN ROLE ROUTES
 
   get '/admin' => 'admin#dashboard'
+
   get '/admin/jobs' => 'job#list'
   get '/admin/jobs/new' => 'job#new'
   post '/admin/jobs/submit' => 'job#submit'
+  get '/admin/jobs/edit/:ids' => 'job#edit'
+  post '/admin/jobs/update/:ids' => 'job#update'
+
+  get '/admin/payments' => 'payments#list'
 
   get '/ajax/citylist/:state' => 'ajax#citylist'
 

@@ -1,0 +1,179 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-md-10">
+    <h2><%= @section %></h2>
+    <ol class="breadcrumb">
+      <li><a href="/admin">Admin</a></li>
+      <li><a href="/admin/payments" class="active">Payments</a></li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="widget navy-bg no-padding">
+        <div class="p-m">
+          <h1 class="m-xs">Rp. 2.000.000,-</h1>
+          <h3 class="font-bold no-margins">
+            Monthly Revenue
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="widget lazur-bg no-padding">
+        <div class="row">
+          <div class="col-md-6">
+            <i class="fa fa-money fa-5x p-m"></i>
+          </div>
+          <div class="col-md-6">
+            <h1>23</h1>
+            <h4>Transactions today</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="widget yellow-bg no-padding">
+        <div class="row">
+          <div class="col-md-6">
+            <i class="fa fa-exclamation-triangle fa-5x p-m"></i>
+          </div>
+          <div class="col-md-6">
+            <h1>23</h1>
+            <h4>Transactions Pending</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" href="#list">List</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#search1">Search by Range</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#search2">Search by ID</a>
+            </li>
+          </ul>
+        </div>
+        <div class="ibox-content">
+          <div class="tab-content">
+            <div id="list" class="tab-pane active">
+              <table class="table table-stripped">
+                <thead>
+                <th>Payment ID</th>
+                <th>Job Name</th>
+                <th>Issuer</th>
+                <th>Price</th>
+                <th>More</th>
+                </thead>
+                <tbody>
+                <% @alluser.each do |usr| %>
+                    <% usr.jobs.each do |jbs| %>
+                        <tr>
+                          <td><%= jbs.payment.payment_hash_id %></td>
+                          <td><%= jbs.job_name %></td>
+                          <td><%= usr.user_name %></td>
+                          <td><%= jbs.payment.payment_price %></td>
+                          <td>
+                            <div class="dropdown">
+                              <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Action
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="/admin/payments/<%= jbs.payment.payment_hash_id %>">Details</a></li>
+                                <li class=""><a href="/admin/payments/edit/<%= jbs.payment.payment_hash_id %>">Accept</a></li>
+                                <li><a href="/admin/payments/delete/<%= jbs.payment.payment_hash_id %>">Decline</a></li>
+                              </ul>
+                            </div>
+                          </td>
+                        </tr>
+                    <% end %>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+            <div id="search1" class="tab-pane">
+                <div class="row">
+                  <form class="form form-horizontal">
+                    <div class="form-group">
+                      <label class="col-md-1 control-label">From</label>
+                      <div class="col-md-4">
+                        <input type="text" placeholder="from date" class="form-control datepicker">
+                      </div>
+                      <label class="col-md-1 control-label">To</label>
+                      <div class="col-md-4">
+                        <input type="text" placeholder="to date" class="form-control datepicker">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-1 control-label">Status</label>
+                      <div class="col-md-4">
+                        <select class="form-control">
+                          <option value="">All</option>
+                          <option value="paid">Paid</option>
+                          <option value="unpaid">Unpaid</option>
+                        </select>
+                      </div>
+                      <a class="btn btn-primary col-md-1 col-md-offset-1">Search</a>
+                    </div>
+                  </form>
+                </div>
+                <div class="row">
+                  <table class="table table-stripped">
+                    <thead>
+                    <th>Payment ID</th>
+                    <th>Job Name</th>
+                    <th>Issuer</th>
+                    <th>Price</th>
+                    <th>More</th>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+            <div id="search2" class="tab-pane">
+              <form class="form form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-md-1">Payment ID</label>
+                  <div class="col-md-4">
+                    <input class="form-control">
+                  </div>
+                  <a class="btn btn-primary col-md-1">Search</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :css do %>
+    <link rel="stylesheet" type="text/css" href="/datepicker/css/bootstrap-datepicker3.min.css">
+    <style>
+        .datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:focus, .datepicker table tr td.active:hover:focus, .datepicker table tr td.active.disabled:focus, .datepicker table tr td.active.disabled:hover:focus, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active, .open .dropdown-toggle.datepicker table tr td.active, .open .dropdown-toggle.datepicker table tr td.active:hover, .open .dropdown-toggle.datepicker table tr td.active.disabled, .open .dropdown-toggle.datepicker table tr td.active.disabled:hover {
+            color: #fff;
+            background-color: #1ab394;
+            border-color: #1ab394;
+        }
+    </style>
+<% end %>
+
+<% content_for :js do %>
+    <script src="/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({});
+    </script>
+<% end %>
