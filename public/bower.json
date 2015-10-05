@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "numeral": "numeraljs#~1.5.3"
   }
 }

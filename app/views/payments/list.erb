@@ -84,7 +84,7 @@
                           <td class="time"><%= jbs.payment.created_at.to_date %></td>
                           <td><%= jbs.job_name %></td>
                           <td><%= usr.user_name %></td>
-                          <td><%= jbs.payment.payment_price %></td>
+                          <td class="price"><%= jbs.payment.payment_price %></td>
                           <% if jbs.payment.payment_status == 'paid' %>
                             <td><span class="label label-success">Paid</span></td>
                           <% elsif jbs.payment.payment_status == 'unpaid' %>
@@ -117,23 +117,23 @@
                     <div class="form-group">
                       <label class="col-md-1 control-label">From</label>
                       <div class="col-md-4">
-                        <input type="text" placeholder="from date" class="form-control datepicker">
+                        <input type="text" placeholder="from date" id="filter-from" class="form-control datepicker">
                       </div>
                       <label class="col-md-1 control-label">To</label>
                       <div class="col-md-4">
-                        <input type="text" placeholder="to date" class="form-control datepicker">
+                        <input type="text" placeholder="to date" id="filter-to" class="form-control datepicker">
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-md-1 control-label">Status</label>
                       <div class="col-md-4">
-                        <select class="form-control">
-                          <option value="">All</option>
+                        <select class="form-control" id="filter-status">
+                          <option value="all">All</option>
                           <option value="paid">Paid</option>
                           <option value="unpaid">Unpaid</option>
                         </select>
                       </div>
-                      <a class="btn btn-primary col-md-1 col-md-offset-1">Search</a>
+                      <a class="btn btn-primary col-md-1 col-md-offset-1" onclick="findPayByFilter()">Search</a>
                     </div>
                   </form>
                 </div>
@@ -147,7 +147,7 @@
                     <th>Price</th>
                     <th>More</th>
                     </thead>
-                    <tbody>
+                    <tbody id="idresult2">
 
                     </tbody>
                   </table>
@@ -202,11 +202,16 @@
 <% content_for :js do %>
     <script src="/datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="/bower_components/moment/moment.js"></script>
+    <script src="/bower_components/numeral/numeral.js"></script>
     <script type="text/javascript">
         $('.datepicker').datepicker({});
         $('.time').each(function(){
             var Tformat = moment($(this).text()).format('LL');
             $(this).text(Tformat);
+        });
+        $('.price').each(function(){
+            var Pformat = numeral($(this).text()).format('0,0');
+            $(this).text('Rp '+Pformat);
         });
 
 
@@ -223,12 +228,44 @@
                         var Tformat = moment($(this).text()).format('LL');
                         $(this).text(Tformat);
                     });
+                    $('.price').each(function(){
+                        var Pformat = numeral($(this).text()).format('0,0');
+                        $(this).text('Rp '+Pformat);
+                    });
                 },
                 error : function(err){
                     console.log('error');
                     console.log(err.responseText);
                 }
             });
+        }
+
+        function findPayByFilter(){
+            $.ajax({
+                url: "/ajax/payment/filter",
+                type: "POST",
+                data: {
+                    start: $('#filter-from').val(),
+                    to: $('#filter-to').val(),
+                    status: $('#filter-status').val()
+                },
+                success : function(output_string){
+                    console.log(output_string);
+                    $('#idresult2').html(output_string);
+                    $('.time').each(function(){
+                        var Tformat = moment($(this).text()).format('LL');
+                        $(this).text(Tformat);
+                    });
+                    $('.price').each(function(){
+                        var Pformat = numeral($(this).text()).format('0,0');
+                        $(this).text('Rp '+Pformat);
+                    });
+                },
+                error : function(err){
+                    console.log('error');
+                    console.log(err.responseText);
+                }
+            })
         }
     </script>
 <% end %>

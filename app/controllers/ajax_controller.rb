@@ -1,4 +1,5 @@
 class AjaxController < ApplicationController
+  protect_from_forgery with: :null_session
 
   def citylist
     stateid = params[:state]
@@ -30,7 +31,7 @@ class AjaxController < ApplicationController
     str += "<td class=\"time\">"+paydata.created_at.to_s+"</td>"
     str += "<td>"+jobdata.job_name+"</td>"
     str += "<td>"+userdata.user_name+"</td>"
-    str += "<td>"+paydata.payment_price.to_s+"</td>"
+    str += "<td class=\"price\">"+paydata.payment_price.to_s+"</td>"
     str += "<td>
                             <div class=\"dropdown\">
                               <button class=\"btn btn-white btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenu2\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">
@@ -54,6 +55,76 @@ class AjaxController < ApplicationController
   def paybydate
     #params
     start = params[:start]
+    to = params[:to]
+    status = params[:status]
+
+    if start == '' || to == '' || status == ''
+      str = "<tr><td colspan=\"6\">Invalid Parameter </td></tr>"
+      render :json => str.to_json()
+    elsif status == 'all'
+      @data = Payment.find_by_sql('select * from payments inner join jobs on jobs.id = payments.job_id inner join users on jobs.user_id = users.id where payments.created_at > \''+start+'\' and payments.created_at < \''+to+'\'')
+
+      str = "<tr>"
+      @data.each do |d|
+        str += "<td>"+d.payment_hash_id+"</td>"
+        str += "<td class=\"time\">"+d.created_at.to_s+"</td>"
+        str += "<td>"+d.job_name+"</td>"
+        str += "<td>"+d.user_name+"</td>"
+        str += "<td class=\"price\">"+d.payment_price.to_s+"</td>"
+        str += "<td>
+                            <div class=\"dropdown\">
+                              <button class=\"btn btn-white btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenu2\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">
+                                Action
+                                <span class=\"caret\"></span>
+                              </button>
+                              <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu2\">
+                                <li><a href=\"/admin/payments/"+d.payment_hash_id+"\">Details</a></li>
+                                <li class=\"\"><a href=\"/admin/payments/edit/"+d.payment_hash_id+"\">Accept</a></li>
+    <li><a href=\"/admin/payments/delete/"+d.payment_hash_id+"\">Decline</a></li>
+    </ul>
+                            </div>
+    </td></tr>"
+      end
+
+      str += "</tr>"
+      if @data.length == 0
+        str = "<tr><td colspan=\"6\">No Data </td></tr>"
+      end
+      render :json => str.to_json()
+    else
+      @data = Payment.find_by_sql('select * from payments inner join jobs on jobs.id = payments.job_id inner join users on jobs.user_id = users.id where payments.created_at > \''+start+'\' and payments.created_at < \''+to+'\' and payments.payment_status = \''+status+'\'')
+
+      str = "<tr>"
+      @data.each do |d|
+        str += "<td>"+d.payment_hash_id+"</td>"
+        str += "<td class=\"time\">"+d.created_at.to_s+"</td>"
+        str += "<td>"+d.job_name+"</td>"
+        str += "<td>"+d.user_name+"</td>"
+        str += "<td class=\"price\">"+d.payment_price.to_s+"</td>"
+        str += "<td>
+                            <div class=\"dropdown\">
+                              <button class=\"btn btn-white btn-sm dropdown-toggle\" type=\"button\" id=\"dropdownMenu2\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">
+                                Action
+                                <span class=\"caret\"></span>
+                              </button>
+                              <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu2\">
+                                <li><a href=\"/admin/payments/"+d.payment_hash_id+"\">Details</a></li>
+                                <li class=\"\"><a href=\"/admin/payments/edit/"+d.payment_hash_id+"\">Accept</a></li>
+    <li><a href=\"/admin/payments/delete/"+d.payment_hash_id+"\">Decline</a></li>
+    </ul>
+                            </div>
+    </td></tr>"
+      end
+
+      str += "</tr>"
+      if @data.length == 0
+        str = "<tr><td colspan=\"6\">No Data </td></tr>"
+      end
+      render :json => str.to_json()
+    end
+
+
+
   end
 
 end

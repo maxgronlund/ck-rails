@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get '/ajax/citylist/:state' => 'ajax#citylist'
   get '/ajax/payment/id/:ids' => 'ajax#paybyid'
+  post '/ajax/payment/filter' => 'ajax#paybydate'
 
   get '/db' => 'job#test'
 
