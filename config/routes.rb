@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post '/admin/jobs/update/:ids' => 'job#update'
 
   get '/admin/payments' => 'payments#list'
+  get '/admin/payments/:ids' => 'payments#details'
 
   get '/ajax/citylist/:state' => 'ajax#citylist'
   get '/ajax/payment/id/:ids' => 'ajax#paybyid'

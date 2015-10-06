@@ -1,0 +1,121 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-md-10">
+    <h2><%= @section %></h2>
+    <ol class="breadcrumb">
+      <li><a href="/admin">Admin</a></li>
+      <li><a href="/admin/payments">Payments</a></li>
+      <li><a href="/admin/payments/<%= @pays.payment_hash_id %>" class="active"><%= @pays.payment_hash_id %></a></li>
+    </ol>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Payments</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="row">
+          <div class="container">
+            <div class="col-md-3"><h2><%= @pays.job_name %></h2></div>
+            <div class="col-md-2">
+              <div class="dropdown">
+                <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><a href="/admin/payments/">Pay</a></li>
+                  <li class="divider"></li>
+                  <li class=""><a href="/admin/payments/edit/">Accept Payment</a></li>
+                  <li><a href="/admin/payments/delete/">Decline Payment</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <table class="table table-stripped">
+              <thead>
+                <th>Items</th>
+                <th>Days</th>
+                <th>Price</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= @pays.payment_hash_id %> - <%= @pays.job_name %></td>
+                  <td><%= @diff %></td>
+                  <td class="price"><%= @pays.payment_price %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-4">
+            <h5>Payment Details</h5>
+            <div class="form-group">
+              <label class="col-md-6 control-label">Issuer</label>
+              <div class="col-md-6">
+                <p><%= @pays.user_name %></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-6 control-label">Issued</label>
+              <div class="col-md-6">
+                <p class="time"><%= @pays.created_at %></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-6 control-label">Start Displaying at</label>
+              <div class="col-md-6">
+                <p class="time"><%= @pays.job_start %></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-6 control-label">Stop Displaying at</label>
+              <div class="col-md-6">
+                <p class="time"><%= @pays.job_valid %></p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-6 control-label">Status</label>
+              <div class="col-md-6">
+                <% if @pays.payment_status == 'unpaid' %>
+                    <p class="label label-danger"><%= @pays.payment_status %></p>
+                <% else %>
+                    <p class="label label-success"><%= @pays.payment_status %></p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="container">
+            <p class="muted">
+              ** flat price is Rp. 5000 for every ads / day. no special price for weekends or public holidays
+            </p>
+            <p class="muted">
+              ** ads wont be displayed until status is paid and match the date it should be displayed
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :js do %>
+    <script src="/bower_components/moment/moment.js"></script>
+    <script src="/bower_components/numeral/numeral.js"></script>
+    <script type="text/javascript">
+        $('.time').each(function(){
+            var Tformat = moment($(this).text()).format('LL');
+            $(this).text(Tformat);
+        });
+        $('.price').each(function(){
+            var Pformat = numeral($(this).text()).format('0,0');
+            $(this).text('Rp '+Pformat);
+        });
+    </script>
+<% end %>

@@ -88,7 +88,7 @@
                           <% if jbs.payment.payment_status == 'paid' %>
                             <td><span class="label label-success">Paid</span></td>
                           <% elsif jbs.payment.payment_status == 'unpaid' %>
-                              <td><span class="label label-warning">Unpaid</span></td>
+                              <td><span class="label label-danger">Unpaid</span></td>
                           <% elsif jbs.payment.payment_status == 'free' %>
                               <td><span class="label label-information">Free</span></td>
                           <% end %>

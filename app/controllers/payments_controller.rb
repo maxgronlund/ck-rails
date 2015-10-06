@@ -25,8 +25,15 @@ class PaymentsController < ApplicationController
     yesterday = Chronic.parse('yesterday').to_s
     tomorrow = Chronic.parse('tomorrow').to_s
     pays = Payment.find_by_sql("select * from payments where created_at > \'"+yesterday+"\' and created_at < \'"+tomorrow+"\'")
-	pays.each do |pr|
+	  pays.each do |pr|
     	@today += 1
     end    
+  end
+
+  def details
+    @current = User.find(session[:user_id])
+    # @pays = Payment.where(:payment_hash_id => params[:ids]).first
+    @pays = User.find_by_sql('select * from users inner join jobs on jobs.user_id = users.id inner join payments on jobs.id = payments.job_id where payments.payment_hash_id = \''+params[:ids]+'\'').first
+    @diff = TimeDifference.between(@pays.job_start , @pays.job_valid).in_days.to_s
   end
 end
