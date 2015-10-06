@@ -62,7 +62,7 @@ class AjaxController < ApplicationController
       str = "<tr><td colspan=\"6\">Invalid Parameter </td></tr>"
       render :json => str.to_json()
     elsif status == 'all'
-      @data = Payment.find_by_sql('select * from payments inner join jobs on jobs.id = payments.job_id inner join users on jobs.user_id = users.id where payments.created_at > \''+start+'\' and payments.created_at < \''+to+'\'')
+      @data = Payment.find_by_sql('select payments.payment_hash_id , payments.created_at , jobs.job_name , users.user_name , payments.payment_price from payments inner join jobs on jobs.id = payments.job_id inner join users on jobs.user_id = users.id where payments.created_at > \''+start+'\' and payments.created_at < \''+to+'\'')
 
       str = "<tr>"
       @data.each do |d|
@@ -79,8 +79,8 @@ class AjaxController < ApplicationController
                               </button>
                               <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu2\">
                                 <li><a href=\"/admin/payments/"+d.payment_hash_id+"\">Details</a></li>
-                                <li class=\"\"><a href=\"/admin/payments/edit/"+d.payment_hash_id+"\">Accept</a></li>
-    <li><a href=\"/admin/payments/delete/"+d.payment_hash_id+"\">Decline</a></li>
+                                <li class=\"\"><a href=\"/admin/payments/edit/"+d.payment_hash_id+"/approve\">Accept</a></li>
+    <li><a href=\"/admin/payments/delete/"+d.payment_hash_id+"/decline\">Decline</a></li>
     </ul>
                             </div>
     </td></tr>"
@@ -92,7 +92,7 @@ class AjaxController < ApplicationController
       end
       render :json => str.to_json()
     else
-      @data = Payment.find_by_sql('select * from payments inner join jobs on jobs.id = payments.job_id inner join users on jobs.user_id = users.id where payments.created_at > \''+start+'\' and payments.created_at < \''+to+'\' and payments.payment_status = \''+status+'\'')
+      @data = Payment.find_by_sql('select payments.payment_hash_id , payments.created_at , jobs.job_name , users.user_name , payments.payment_price from payments inner join jobs on jobs.id = payments.job_id inner join users on jobs.user_id = users.id where payments.created_at > \''+start+'\' and payments.created_at < \''+to+'\' and payments.payment_status = \''+status+'\'')
 
       str = "<tr>"
       @data.each do |d|
@@ -109,8 +109,8 @@ class AjaxController < ApplicationController
                               </button>
                               <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu2\">
                                 <li><a href=\"/admin/payments/"+d.payment_hash_id+"\">Details</a></li>
-                                <li class=\"\"><a href=\"/admin/payments/edit/"+d.payment_hash_id+"\">Accept</a></li>
-    <li><a href=\"/admin/payments/delete/"+d.payment_hash_id+"\">Decline</a></li>
+                                <li class=\"\"><a href=\"/admin/payments/edit/"+d.payment_hash_id+"/approve\">Accept</a></li>
+    <li><a href=\"/admin/payments/delete/"+d.payment_hash_id+"/decline\">Decline</a></li>
     </ul>
                             </div>
     </td></tr>"

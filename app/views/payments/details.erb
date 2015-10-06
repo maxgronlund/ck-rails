@@ -28,8 +28,8 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li><a href="/admin/payments/">Pay</a></li>
                   <li class="divider"></li>
-                  <li class=""><a href="/admin/payments/edit/">Accept Payment</a></li>
-                  <li><a href="/admin/payments/delete/">Decline Payment</a></li>
+                  <li class=""><a href="/admin/payments/<%= @pays.payment_hash_id %>/approve">Accept Payment</a></li>
+                  <li><a href="/admin/payments/<%= @pays.payment_hash_id %>/decline">Decline Payment</a></li>
                 </ul>
               </div>
             </div>

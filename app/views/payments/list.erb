@@ -100,8 +100,8 @@
                               </button>
                               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li><a href="/admin/payments/<%= jbs.payment.payment_hash_id %>">Details</a></li>
-                                <li class=""><a href="/admin/payments/edit/<%= jbs.payment.payment_hash_id %>">Accept</a></li>
-                                <li><a href="/admin/payments/delete/<%= jbs.payment.payment_hash_id %>">Decline</a></li>
+                                <li class=""><a href="/admin/payments/<%= jbs.payment.payment_hash_id %>/approve">Accept</a></li>
+                                <li><a href="/admin/payments/<%= jbs.payment.payment_hash_id %>/decline">Decline</a></li>
                               </ul>
                             </div>
                           </td>

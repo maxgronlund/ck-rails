@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get '/admin/payments' => 'payments#list'
   get '/admin/payments/:ids' => 'payments#details'
+  get '/admin/payments/:ids/approve' => 'payments#approve'
 
   get '/ajax/citylist/:state' => 'ajax#citylist'
   get '/ajax/payment/id/:ids' => 'ajax#paybyid'
