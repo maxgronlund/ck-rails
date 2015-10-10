@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006031603) do
+ActiveRecord::Schema.define(version: 20151010022525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20151006031603) do
     t.boolean  "job_is_fake"
     t.string   "job_status"
     t.integer  "user_id"
+    t.string   "flag"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -86,6 +87,13 @@ ActiveRecord::Schema.define(version: 20151006031603) do
 
   add_index "payments", ["job_id"], name: "index_payments_on_job_id", using: :btree
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "role_code"
+    t.string   "role_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "salaries", force: :cascade do |t|
     t.integer  "salary_code"
     t.string   "salary_string"
@@ -115,6 +123,7 @@ ActiveRecord::Schema.define(version: 20151006031603) do
     t.integer  "user_state"
     t.integer  "user_city"
     t.string   "user_role"
+    t.string   "flag"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

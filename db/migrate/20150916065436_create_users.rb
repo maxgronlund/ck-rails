@@ -12,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :user_state
       t.integer :user_city
       t.string  :user_role
+      t.string  :flag
       t.timestamps null: false
     end
   end

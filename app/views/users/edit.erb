@@ -1,0 +1,113 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-md-10">
+    <h2><%= @section %></h2>
+    <ol class="breadcrumb">
+      <li><a href="/admin">Admin</a></li>
+      <li><a href="/admin/users">Users</a></li>
+      <li><a href="/admin/users/edit/<%= @editUser.user_hash_id %>" class="active"><%= @editUser.user_hash_id %></a></li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">Edit User</div>
+        <div class="ibox-content">
+          <%= form_for(:user , url: '/admin/users/update/'+@editUser.user_hash_id , html: { class: 'form form-horizontal'}) do |f| %>
+              <div class="form-group">
+                <label class="control-label col-md-2">User Name</label>
+                <div class="col-md-8">
+                  <%= f.text_field :name , class: 'form-control' , placeholder: 'Name' , value: @editUser.user_name %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-2">User Email</label>
+                <div class="col-md-8">
+                  <%= f.text_field :email , class: 'form-control' , placeholder: 'Email' , value: @editUser.user_email %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-2">User Password</label>
+                <div class="col-md-8">
+                  <%= f.password_field :password , class: 'form-control' , placeholder: 'Password' , value: @editUser.password %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-2">Role</label>
+                <div class="col-md-8">
+                  <select class="form-control" name="user[role]">
+                    <% @roles.each do |rl| %>
+                        <% if rl.role_code == @editUser.user_role %>
+                            <option value="<%= rl.role_code %>" selected><%= rl.role_name %></option>
+                        <% else %>
+                            <option value="<%= rl.role_code %>"><%= rl.role_name %></option>
+                        <% end %>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-2">State</label>
+                <div class="col-md-8">
+                  <select id="state-select" class="form-control" name="user[state]">
+                    <option>-- select state --</option>
+                    <% @states.each do |st| %>
+                        <% if st.id == @editUser.user_state %>
+                            <option value="<%= st.id %>" selected><%= st.state_name %></option>
+                        <% else %>
+                            <option value="<%= st.id %>"><%= st.state_name %></option>
+                        <% end %>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group" id="citygroup">
+                <label class="control-label col-md-2">City</label>
+                <div class="col-md-8">
+                  <div id="citilist">
+                    <select id="" class="form-control" name="user[city]">
+                      <option>-- select state --</option>
+                      <% @cities.each do |ct| %>
+                          <% if ct.id == @editUser.user_city %>
+                              <option value="<%= ct.id %>" selected><%= ct.city_name %></option>
+                          <% else %>
+                              <option value="<%= ct.id %>"><%= ct.city_name %></option>
+                          <% end %>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary col-md-offset-2 col-md-8">Create</button>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :js do %>
+    <script>
+        $('#state-select').on('change' , function(){
+            var ids = $("#state-select").val();
+            $('#citygroup').show();
+            $.ajax({
+                url : '/ajax/citylist/usr/'+ids,
+                method : 'GET',
+                dataType : 'html',
+                success : function(output){
+                    console.log(output);
+                    $('#citilist').html(output);
+                },
+                error : function(err){
+                    console.log('error');
+                    console.log(err.responseText);
+                }
+            })
+        });
+    </script>
+<% end %>

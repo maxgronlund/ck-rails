@@ -15,6 +15,7 @@ class CreateJobs < ActiveRecord::Migration
       t.boolean   :job_is_fake , :null => true
       t.string    :job_status , :null => true
       t.integer   :user_id
+      t.string    :flag
       t.timestamps null: false
     end
   end

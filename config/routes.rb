@@ -18,7 +18,15 @@ Rails.application.routes.draw do
   get '/admin/payments/:ids' => 'payments#details'
   get '/admin/payments/:ids/approve' => 'payments#approve'
 
+  get '/admin/users' => 'users#list'
+  get '/admin/users/new' => 'users#new'
+  post '/admin/users/submit' => 'users#submit'
+  get '/admin/users/edit/:ids' => 'users#edit'
+  post '/admin/users/update/:ids' => 'users#update'
+  get '/admin/users/delete/:ids' => 'users#delete'
+
   get '/ajax/citylist/:state' => 'ajax#citylist'
+  get '/ajax/citylist/usr/:state' => 'ajax#citylistusr'
   get '/ajax/payment/id/:ids' => 'ajax#paybyid'
   post '/ajax/payment/filter' => 'ajax#paybydate'
 

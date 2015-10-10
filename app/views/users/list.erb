@@ -1,0 +1,51 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-md-10">
+    <h2><%= @section %></h2>
+    <ol class="breadcrumb">
+      <li><a href="/admin">Admin</a></li>
+      <li><a href="/admin/users" class="active">Users</a></li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title"></div>
+        <div class="ibox-content">
+          <table class="table table-stripped">
+            <thead>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>User Role</th>
+            <th>More</th>
+            </thead>
+            <tbody>
+                <% @users.each do |us| %>
+                <tr>
+                    <td><%= us.user_name %></td>
+                    <td><%= us.user_email %></td>
+                    <td><%= us.user_role %></td>
+                      <td>
+                        <div class="dropdown">
+                          <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Action
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="/admin/users/<%= us.user_hash_id %>">Details</a></li>
+                            <li class=""><a href="/admin/users/edit/<%= us.user_hash_id %>">Edit</a></li>
+                            <li><a href="/admin/users/delete/<%= us.user_hash_id %>">Delete</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
