@@ -43,7 +43,7 @@ class AjaxController < ApplicationController
     userdata  = User.find(jobdata.user_id)
     str = "<tr>"
     str += "<td>"+paydata.payment_hash_id+"</td>"
-    str += "<td class=\"time\">"+paydata.created_at.to_s+"</td>"
+    str += "<td class=\"\">"+paydata.created_at.to_s+"</td>"
     str += "<td>"+jobdata.job_name+"</td>"
     str += "<td>"+userdata.user_name+"</td>"
     str += "<td class=\"price\">"+paydata.payment_price.to_s+"</td>"
@@ -82,7 +82,7 @@ class AjaxController < ApplicationController
       str = "<tr>"
       @data.each do |d|
         str += "<td>"+d.payment_hash_id+"</td>"
-        str += "<td class=\"time\">"+d.created_at.to_s+"</td>"
+        str += "<td class=\"\">"+d.created_at.to_s+"</td>"
         str += "<td>"+d.job_name+"</td>"
         str += "<td>"+d.user_name+"</td>"
         str += "<td class=\"price\">"+d.payment_price.to_s+"</td>"

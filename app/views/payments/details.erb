@@ -63,19 +63,19 @@
             <div class="form-group">
               <label class="col-md-6 control-label">Issued</label>
               <div class="col-md-6">
-                <p class="time"><%= @pays.created_at %></p>
+                <p class="time"><%= @pays.created_at.to_date %></p>
               </div>
             </div>
             <div class="form-group">
               <label class="col-md-6 control-label">Start Displaying at</label>
               <div class="col-md-6">
-                <p class="time"><%= @pays.job_start %></p>
+                <p class="time"><%= @pays.job_start.to_date %></p>
               </div>
             </div>
             <div class="form-group">
               <label class="col-md-6 control-label">Stop Displaying at</label>
               <div class="col-md-6">
-                <p class="time"><%= @pays.job_valid %></p>
+                <p class="time"><%= @pays.job_valid.to_date %></p>
               </div>
             </div>
             <div class="form-group">
@@ -98,6 +98,26 @@
             <p class="muted">
               ** ads wont be displayed until status is paid and match the date it should be displayed
             </p>
+          </div>
+        </div>
+        <div class="row">
+          <br>
+          <div class="container">
+            <h2>Payment History</h2>
+            <table class="table table-stripped">
+              <thead>
+              <th>State</th>
+              <th>Issued</th>
+              </thead>
+              <tbody>
+              <% @logs.each do |l| %>
+                  <tr>
+                    <td><%= l.payment_state %></td>
+                    <td class="time"><%= l.issued_at.to_date %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

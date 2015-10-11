@@ -35,24 +35,43 @@ class PaymentsController < ApplicationController
     # @pays = Payment.where(:payment_hash_id => params[:ids]).first
     @pays = User.find_by_sql('select * from users inner join jobs on jobs.user_id = users.id inner join payments on jobs.id = payments.job_id where payments.payment_hash_id = \''+params[:ids]+'\'').first
     @diff = TimeDifference.between(@pays.job_start , @pays.job_valid).in_days.to_s
+    pid = Payment.where(:payment_hash_id => params[:ids]).first
+    @logs = PaymentLog.where(:payment_id => pid.id )
   end
 
   def approve
     payment_id = params[:ids]
     userid = session[:user_id]
 
-    PaymentLog.create({
-      payment_id: payment_id,
-      approved_by: userid,
-      approved_at: Time.now
-    })
+
 
     pay = Payment.where(:payment_hash_id => payment_id).first
     pay.payment_status = 'paid'
     pay.save
 
+    PaymentLog.create({
+      payment_id: pay.id,
+      payment_state: 'approved',
+      issued_at: Time.now
+    })
+
     redirect_to '/admin/payments/'+payment_id
 
+  end
+
+  def decline
+    payment_id = params[:ids]
+    pay = Payment.where(:payment_hash_id => payment_id).first
+    pay.payment_status = 'declined'
+    pay.save
+
+    PaymentLog.create({
+                          payment_id: pay.id,
+                          payment_state: 'decined',
+                          issued_at: Time.now
+                      })
+
+    redirect_to '/admin/payments/'+payment_id
   end
 
 end

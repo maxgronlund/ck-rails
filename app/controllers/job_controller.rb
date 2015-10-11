@@ -34,6 +34,7 @@ class JobController < ApplicationController
 			user_id: session[:user_id],
 			job_is_fake: false,
 			job_status: 'OK',
+			flag: 'active'
 		});
 
 		job = Job.find(currentJob.id)
@@ -55,6 +56,15 @@ class JobController < ApplicationController
 		pay = Payment.find(currentPayment.id)
 		pay.payment_hash_id = hashid.encode(currentPayment.id)
 		pay.save
+
+		PaymentLog.create({
+			payment_id: currentPayment.id,
+			payment_state: 'issued',
+			issuer: session[:user_id],
+			issued_at: Time.now,
+			created_at: Time.now,
+			updated_at: Time.now
+		});
 
 		redirect_to('/admin/jobs')
 

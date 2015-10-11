@@ -1,0 +1,49 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-md-10">
+    <h2><%= @section %></h2>
+    <ol class="breadcrumb">
+      <li><a href="/company">Company</a></li>
+      <li><a href="/company/jobs" class="active">Jobs</a></li>
+    </ol>
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">Jobs</div>
+        <div class="ibox-content">
+          <table class="table table-stripped">
+            <thead>
+            <th>Job Name</th>
+            <th>Issuer</th>
+            <th>Start</th>
+            <th>Valid Until</th>
+            <th>More</th>
+            </thead>
+            <tbody>
+                <% @jobs.each do |job| %>
+                    <tr>
+                      <td><%= job.job_name %></td>
+                      <td><%= job.user_name %></td>
+                      <td class="time"><%= job.job_start.to_date %></td>
+                      <td class="time"><%= job.job_valid.to_date %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :js do %>
+    <script src="/bower_components/moment/moment.js"></script>
+    <script type="text/javascript">
+        $('.time').each(function(){
+            var Tformat = moment($(this).text()).format('LL');
+            $(this).text(Tformat);
+        });
+    </script>
+<% end %>

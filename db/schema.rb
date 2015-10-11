@@ -60,11 +60,11 @@ ActiveRecord::Schema.define(version: 20151010022525) do
 
   create_table "payment_logs", force: :cascade do |t|
     t.integer  "payment_id"
-    t.integer  "approved_by"
-    t.datetime "approved_at"
-    t.datetime "paid_at"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "payment_state"
+    t.integer  "issuer"
+    t.datetime "issued_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "payment_logs", ["payment_id"], name: "index_payment_logs_on_payment_id", using: :btree

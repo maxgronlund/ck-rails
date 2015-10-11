@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/admin/payments' => 'payments#list'
   get '/admin/payments/:ids' => 'payments#details'
   get '/admin/payments/:ids/approve' => 'payments#approve'
+  get '/admin/payments/:ids/decline' => 'payments#decline'
 
   get '/admin/users' => 'users#list'
   get '/admin/users/new' => 'users#new'
@@ -29,6 +30,13 @@ Rails.application.routes.draw do
   get '/ajax/citylist/usr/:state' => 'ajax#citylistusr'
   get '/ajax/payment/id/:ids' => 'ajax#paybyid'
   post '/ajax/payment/filter' => 'ajax#paybydate'
+
+  # COMPANY ROLE ROUTES
+
+  get '/company' => 'company#dash'
+  get '/company/jobs' => 'company_jobs#list'
+  get '/company/jobs/new' => 'company_jobs#new'
+  post '/company/jobs/submit' => 'company_jobs#submit'
 
   get '/db' => 'job#test'
 
