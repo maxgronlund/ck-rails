@@ -6,12 +6,14 @@ class UsersController < ApplicationController
   def list
     @current = User.find(session[:user_id])
     @section = 'Users'
+    @active = 'users'
     @users = User.all
   end
 
   def new
     @current = User.find(session[:user_id])
     @section = 'Users'
+    @active = 'users'
     @states = State.all
   end
 
@@ -35,6 +37,8 @@ class UsersController < ApplicationController
 
   def edit
     @current = User.find(session[:user_id])
+    @section = 'Users'
+    @active = 'users'
     @editUser = User.where(:user_hash_id => params[:ids]).first
     @states = State.all
     @cities = City.where(:state_id => @editUser.user_state)

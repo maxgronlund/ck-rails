@@ -76,8 +76,29 @@
                 			<td class="time"><%= pay.created_at.to_date %></td>
                 			<td><%= pay.job_name %></td>
                 			<td class="price"><%= pay.payment_price %></td>
-                			<td><%= pay.payment_status %></td>
-                			<td><%= pay.flag %></td>
+                            <% if pay.payment_status == "paid" %>
+                              <td><span class="label label-primary">Paid</span></td>
+                            <% else %>
+                              <td><span class="label label-warning">Unpaid</span></td>
+                            <% end %>
+                          <% if pay.flag == "deleted" %>
+                              <td><span class="label label-warning">Deleted</span></td>
+                          <% else %>
+                              <td><span class="label label-primary">Active</span></td>
+                          <% end %>
+                          <td>
+                            <div class="dropdown">
+                              <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Action
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="/company/payments/<%= pay.payment_hash_id %>">Details</a></li>
+                                <li class=""><a href="/company/payments/<%= pay.payment_hash_id %>/pay">Pay</a></li>
+                                <li><a href="/company/payments/<%= pay.payment_hash_id %>/report">Report</a></li>
+                              </ul>
+                            </div>
+                          </td>
                 		</tr>
                 	<% end %>		
                 </tbody>

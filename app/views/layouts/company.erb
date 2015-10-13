@@ -48,6 +48,7 @@
           </div>
           <div class="logo-element">C|K</div>
         </li>
+        <% if @active == 'dashboard'%>
         <li class="active">
           <a href="/company">Dashboard</a>
         </li>
@@ -64,6 +65,58 @@
         <li class="special_link">
           <a href="#">Upgrade to PRO</a>
         </li>
+        <% elsif @active == 'jobs' %>
+            <li class="">
+              <a href="/company">Dashboard</a>
+            </li>
+            <li class="active">
+              <a href="#">Jobs</a>
+              <ul class="nav nav-second-level collapse">
+                <li class=""><a href="/company/jobs">All Jobs</a></li>
+                <li class=""><a href="/company/jobs/new">New Job</a></li>
+              </ul>
+            </li>
+            <li class="">
+              <a href="/company/payments">Payments</a>
+            </li>
+            <li class="special_link">
+              <a href="#">Upgrade to PRO</a>
+            </li>
+        <% elsif @active == "payments" %>
+            <li class="">
+              <a href="/company">Dashboard</a>
+            </li>
+            <li class="">
+              <a href="#">Jobs</a>
+              <ul class="nav nav-second-level collapse">
+                <li class=""><a href="/company/jobs">All Jobs</a></li>
+                <li class=""><a href="/company/jobs/new">New Job</a></li>
+              </ul>
+            </li>
+            <li class="active">
+              <a href="/company/payments">Payments</a>
+            </li>
+            <li class="special_link">
+              <a href="#">Upgrade to PRO</a>
+            </li>
+        <% else %>
+            <li class="">
+              <a href="/company">Dashboard</a>
+            </li>
+            <li class="">
+              <a href="#">Jobs</a>
+              <ul class="nav nav-second-level collapse">
+                <li class=""><a href="/company/jobs">All Jobs</a></li>
+                <li class=""><a href="/company/jobs/new">New Job</a></li>
+              </ul>
+            </li>
+            <li class="">
+              <a href="/company/payments">Payments</a>
+            </li>
+            <li class="special_link">
+              <a href="#">Upgrade to PRO</a>
+            </li>
+        <% end %>
       </ul>
     </div>
   </nav>

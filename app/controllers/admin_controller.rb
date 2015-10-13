@@ -5,6 +5,7 @@ class AdminController < ApplicationController
 
   def dashboard
     @current = User.find(session[:user_id])
+    @active = 'dashboard'
   end
 
 end

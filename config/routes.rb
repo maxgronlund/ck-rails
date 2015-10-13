@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   post '/company/jobs/update/:ids' => 'company_jobs#update'
   get '/company/jobs/delete/:ids' => 'company_jobs#delete'
   get '/company/payments' => 'company_payment#list'
+  get '/company/payments/:ids' => 'company_payment#details'
 
 
 

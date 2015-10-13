@@ -5,6 +5,7 @@ class CompanyController < ApplicationController
 
   def dash
     @current = User.find(session[:user_id])
+    @active = 'dashboard'
   end
 
 end

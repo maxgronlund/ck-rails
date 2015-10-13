@@ -5,6 +5,8 @@ class CompanyJobsController < ApplicationController
 
   def list
     @current = User.find(session[:user_id])
+    @section = "Jobs"
+    @active = "jobs"
     @jobs = Job.find_by_sql('select * from jobs inner join users on users.id = jobs.user_id where users.id = \''+session[:user_id].to_s+'\' and jobs.flag = \'active\'')
   end
 

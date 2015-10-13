@@ -73,6 +73,8 @@ class JobController < ApplicationController
 
 	def edit
 		ids = params[:ids]
+		@section = "Jobs"
+		@active = "jobs"
 		@currentJob = Job.where(:job_hash_id => ids).first
 		@current = User.find(session[:user_id])
 		@categories = Category.all.order(:category_name)
@@ -95,15 +97,6 @@ class JobController < ApplicationController
 		@currentJob.save
 
 		redirect_to '/admin/jobs'
-	end
-
-	def test
-		# job = Job.find(3)
-		# time = TimeDifference.between(job.job_start , job.job_valid).in_days
-		# time = job.job_start.to_date
-		# render :json => time
-		@current = User.find(session[:user_id])
-		@users = User.all
 	end
 
 end
