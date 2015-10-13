@@ -4,6 +4,12 @@
 			<div class="logo-name">
 				C|K
 			</div>
+              <% flash.each do |key,value| %>
+              <div class="alert alert-<%= key %> alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <%= value %>
+              </div>
+              <% end %>
 			<%= form_for(:session , url: '/auth' , html: {class: "m-t" }) do |f| %>
 				<div class="form-group">
 					<%= f.email_field :email , class: 'form-control', placeholder: 'email' %>
