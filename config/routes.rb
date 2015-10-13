@@ -37,6 +37,12 @@ Rails.application.routes.draw do
   get '/company/jobs' => 'company_jobs#list'
   get '/company/jobs/new' => 'company_jobs#new'
   post '/company/jobs/submit' => 'company_jobs#submit'
+  get '/company/jobs/edit/:ids' => 'company_jobs#edit'
+  post '/company/jobs/update/:ids' => 'company_jobs#update'
+  get '/company/jobs/delete/:ids' => 'company_jobs#delete'
+  get '/company/payments' => 'company_payment#list'
+
+
 
   get '/db' => 'job#test'
 

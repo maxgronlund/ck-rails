@@ -39,7 +39,7 @@
                                             <li><a href="/admin/jobs/<%= jb.job_hash_id %>">Details</a></li>
                                                 <% if jb.payment.payment_status == 'unpaid' %>
                                                     <li class=""><a href="/admin/jobs/edit/<%= jb.job_hash_id %>">Edit</a></li>
-                                                    <li><a href="/admin/jobs/delete/<%= jb.job_hash_id %>">Delete</a></li>
+                                                    <li><a onclick="warnDelete('/admin/jobs/delete/<%= jb.job_hash_id %>')">Delete</a></li>
                                                 <% else %>
                                                     <li class="disabled"><a href="#">Edit</a></li>
                                                     <li class="disabled"><a href="#">Delete</a></li>
@@ -65,5 +65,27 @@
           var Tformat = moment($(this).text()).format('LL');
           $(this).text(Tformat);
       });
+
+
+      toastr.options = {
+          "closeButton": true,
+          "debug": true,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "onclick": null,
+          "showDuration": "400",
+          "hideDuration": "1000",
+          "timeOut": "7000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+      }
+      
+      function warnDelete(ids){
+          var choice = confirm('Are you sure want to delete Jobs with id = '+ids);
+
+      }
     </script>
 <% end %>

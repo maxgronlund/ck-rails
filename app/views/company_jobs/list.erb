@@ -7,6 +7,9 @@
     </ol>
   </div>
 </div>
+<div class="row">
+
+</div>
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-md-12">
@@ -28,6 +31,24 @@
                       <td><%= job.user_name %></td>
                       <td class="time"><%= job.job_start.to_date %></td>
                       <td class="time"><%= job.job_valid.to_date %></td>
+                      <td>
+                        <div class="dropdown">
+                          <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Action
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="/company/jobs/<%= job.job_hash_id %>">Details</a></li>
+                            <% if job.payment.payment_status == 'unpaid' %>
+                                <li class=""><a href="/company/jobs/edit/<%= job.job_hash_id %>">Edit</a></li>
+                                <li><a onclick="warnDelete('/company/jobs/delete/<%= job.job_hash_id %>')">Delete</a></li>
+                            <% else %>
+                                <li class="disabled"><a href="#">Edit</a></li>
+                                <li class="disabled"><a href="#">Delete</a></li>
+                            <% end %>
+                          </ul>
+                        </div>
+                      </td>
                     </tr>
                 <% end %>
             </tbody>
@@ -45,5 +66,37 @@
             var Tformat = moment($(this).text()).format('LL');
             $(this).text(Tformat);
         });
+
+        function warnDelete(ids){
+            var choice = confirm('Are you sure want to delete this job?\nDeleting means this job wont be available even it\'s peroid still active.' );
+            if(choice){
+                window.location = ids;
+            }
+        }
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "7000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        <% flash.each do |key , value| %>
+            <% if key == 'success' %>
+                toastr.success('<%= value %>');
+            <% elsif key == 'danger' %>
+                toastr.warning('<%= value %>');
+            <% else %>
+                toastr.info('<%= value %>');
+            <% end %>
+        <% end %>
     </script>
 <% end %>

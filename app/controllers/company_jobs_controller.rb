@@ -5,7 +5,7 @@ class CompanyJobsController < ApplicationController
 
   def list
     @current = User.find(session[:user_id])
-    @jobs = Job.find_by_sql('select * from jobs inner join users on users.id = jobs.user_id where users.id = \''+session[:user_id].to_s+'\'')
+    @jobs = Job.find_by_sql('select * from jobs inner join users on users.id = jobs.user_id where users.id = \''+session[:user_id].to_s+'\' and jobs.flag = \'active\'')
   end
 
   def new
@@ -62,9 +62,53 @@ class CompanyJobsController < ApplicationController
                           created_at: Time.now,
                           updated_at: Time.now
                       });
-
+    flash[:success] = "Jobs successfully created."
     redirect_to('/company/jobs')
 
+  end
+
+  def edit
+    @current = User.find(session[:user_id])
+    @section = "Jobs"
+    @active = "jobs"
+
+    job_id = params[:ids]
+
+    @currentJob = Job.where(:job_hash_id => job_id).first
+    if @currentJob.payment.payment_status == 'paid'
+      flash[:warning] = "Jobs has been paid, can\'t be edited.'"
+      redirect_to '/company/jobs'
+    else
+      @categories = Category.all.order(:category_name)
+      @salaries = Salary.all
+      @states = State.all
+      @cities = City.where(:state_id => @currentJob.job_state)
+    end
+  end
+
+  def update
+    ids = params[:ids]
+    @currentJob = Job.where(:job_hash_id => ids).first
+    @currentJob.job_name = params[:job][:name]
+    @currentJob.job_description = params[:job][:description]
+    @currentJob.job_category = params[:job][:category]
+    @currentJob.job_salary = params[:job][:salary]
+    @currentJob.job_state = params[:job][:state]
+    @currentJob.job_city = params[:job][:city]
+    @currentJob.job_start = Chronic.parse(params[:job][:start])
+    @currentJob.job_valid = Chronic.parse(params[:job][:valid])
+    @currentJob.save
+    flash[:success] = "Jobs successfully updated."
+    redirect_to '/company/jobs'
+  end
+
+  def delete
+    ids = params[:ids]
+    @currentJob = Job.where(:job_hash_id => ids).first
+    @currentJob.flag = 'deleted'
+    @currentJob.save
+    flash[:success] = "Jobs successfully deleted."
+    redirect_to '/company/jobs'
   end
 
 end
