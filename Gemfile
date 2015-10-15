@@ -29,6 +29,8 @@ gem 'hashids'
 gem 'chronic'
 gem 'stamp'
 gem 'time_difference', '~> 0.4.2'
+
+gem 'jwt'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

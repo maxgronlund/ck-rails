@@ -43,7 +43,8 @@ Rails.application.routes.draw do
   get '/company/payments' => 'company_payment#list'
   get '/company/payments/:ids' => 'company_payment#details'
 
-
+  get '/jwt' => 'jwt#test'
+  get '/jwt/decode' => 'jwt#decode'
 
   get '/db' => 'job#test'
 
