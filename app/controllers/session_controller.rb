@@ -10,8 +10,11 @@ class SessionController < ApplicationController
 			elsif cuser.user_role == 'company'
 				redirect_to '/company'
 			else
-				redirect_to '/home'
+				redirect_to '/'
 			end
+		else
+			flash[:info] = 'User not found'
+			redirect_to '/'		
 		end	
 	end
 
