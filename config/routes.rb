@@ -31,6 +31,10 @@ Rails.application.routes.draw do
   get '/ajax/payment/id/:ids' => 'ajax#paybyid'
   post '/ajax/payment/filter' => 'ajax#paybydate'
 
+  get '/admin/articles' => 'article#list'
+  get '/admin/articles/new' => 'article#new'
+  post '/admin/articles/submit' => 'article#submit'
+
   # COMPANY ROLE ROUTES
 
   get '/company' => 'company#dash'

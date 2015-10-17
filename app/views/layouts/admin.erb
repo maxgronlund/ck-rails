@@ -59,6 +59,13 @@
                 <li class=""><a href="/admin/users/new">New User</a></li>
               </ul>
             </li>
+                <li class="">
+                  <a href="#">Articles</a>
+                  <ul class="nav nav-second-level collapse">
+                    <li class=""><a href="/admin/articles">All Posts</a></li>
+                    <li class=""><a href="/admin/articles/new">New Post</a></li>
+                  </ul>
+                </li>
             <li class="">
                 <a href="#">Jobs</a>
                 <ul class="nav nav-second-level collapse">
@@ -84,6 +91,13 @@
                   </ul>
                 </li>
                 <li class="">
+                  <a href="#">Articles</a>
+                  <ul class="nav nav-second-level collapse">
+                    <li class=""><a href="/admin/articles">All Posts</a></li>
+                    <li class=""><a href="/admin/articles/new">New Post</a></li>
+                  </ul>
+                </li>
+                <li class="">
                   <a href="#">Jobs</a>
                   <ul class="nav nav-second-level collapse">
                     <li class=""><a href="/admin/jobs">All Jobs</a></li>
@@ -105,6 +119,13 @@
                   <ul class="nav nav-second-level collapse">
                     <li class=""><a href="/admin/users">All Users</a></li>
                     <li class=""><a href="/admin/users/new">New User</a></li>
+                  </ul>
+                </li>
+                <li class="">
+                  <a href="#">Articles</a>
+                  <ul class="nav nav-second-level collapse">
+                    <li class=""><a href="/admin/articles">All Posts</a></li>
+                    <li class=""><a href="/admin/articles/new">New Post</a></li>
                   </ul>
                 </li>
                 <li class="active">
@@ -132,6 +153,13 @@
                   </ul>
                 </li>
                 <li class="">
+                  <a href="#">Articles</a>
+                  <ul class="nav nav-second-level collapse">
+                    <li class=""><a href="/admin/articles">All Posts</a></li>
+                    <li class=""><a href="/admin/articles/new">New Post</a></li>
+                  </ul>
+                </li>
+                <li class="">
                   <a href="#">Jobs</a>
                   <ul class="nav nav-second-level collapse">
                     <li class=""><a href="/admin/jobs">All Jobs</a></li>
@@ -139,6 +167,37 @@
                   </ul>
                 </li>
                 <li class="active">
+                  <a href="/admin/payments">Payments</a>
+                </li>
+                <li class="special_link">
+                  <a href="#">Upgrade to PRO</a>
+                </li>
+            <% elsif @active == 'articles' %>
+                <li class="">
+                  <a href="/admin">Dashboard</a>
+                </li>
+                <li class="">
+                  <a href="#">Users</a>
+                  <ul class="nav nav-second-level collapse">
+                    <li class=""><a href="/admin/users">All Users</a></li>
+                    <li class=""><a href="/admin/users/new">New User</a></li>
+                  </ul>
+                </li>
+                <li class="active">
+                  <a href="#">Articles</a>
+                  <ul class="nav nav-second-level collapse">
+                    <li class=""><a href="/admin/articles">All Posts</a></li>
+                    <li class=""><a href="/admin/articles/new">New Post</a></li>
+                  </ul>
+                </li>
+                <li class="">
+                  <a href="#">Jobs</a>
+                  <ul class="nav nav-second-level collapse">
+                    <li class=""><a href="/admin/jobs">All Jobs</a></li>
+                    <li class=""><a href="/admin/jobs/new">New Job</a></li>
+                  </ul>
+                </li>
+                <li class="">
                   <a href="/admin/payments">Payments</a>
                 </li>
                 <li class="special_link">

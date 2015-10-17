@@ -21,6 +21,7 @@
   "dependencies": {
     "jquery": "~2.1.4",
     "moment": "~2.10.6",
-    "numeral": "numeraljs#~1.5.3"
+    "numeral": "numeraljs#~1.5.3",
+    "chosen": "~1.4.2"
   }
 }

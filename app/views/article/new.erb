@@ -1,0 +1,61 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-md-10">
+    <h2><%= @section %></h2>
+    <ol class="breadcrumb">
+      <li><a href="/admin">Admin</a></li>
+      <li><a href="/admin/articles">Articles</a></li>
+      <li><a href="/admin/articles/new" class="active">New</a></li>
+    </ol>
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">New Job</div>
+        <div class="ibox-content">
+          <%= form_for(:article , url: '/admin/articles/submit' , html: { class: 'form form-horizontal'}) do |f| %>
+              <div class="form-group">
+                <label class="control-label col-md-2">Title</label>
+                <div class="col-md-8">
+                  <%= f.text_field :title , class: 'form-control' , placeholder: 'Title' %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-2">Body</label>
+                <div class="col-md-8">
+                  <%= f.text_area :body , class: 'form-control' , id: 'desc' %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-2">Tags</label>
+                <div class="col-md-8">
+                  <select multiple class="chosen col-md-12" name="article[tags][]">
+                    <% @tags.each do |tag| %>
+                        <option value="<%= tag.id %>"><%= tag.tag_name %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary col-md-offset-2 col-md-8">Create</button>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :css do %>
+    <link rel="stylesheet" type="text/css" href="/bower_components/chosen/chosen.min.css">
+<% end %>
+
+<% content_for :js do %>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/bower_components/chosen/chosen.jquery.min.js"></script>
+    <script>
+        CKEDITOR.replace('desc');
+        $('.chosen').chosen();
+    </script>
+<% end %>
