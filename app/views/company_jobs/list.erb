@@ -39,13 +39,8 @@
                           </button>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <li><a href="/company/jobs/<%= job.job_hash_id %>">Details</a></li>
-                            <% if job.payment.payment_status == 'unpaid' %>
-                                <li class=""><a href="/company/jobs/edit/<%= job.job_hash_id %>">Edit</a></li>
-                                <li><a onclick="warnDelete('/company/jobs/delete/<%= job.job_hash_id %>')">Delete</a></li>
-                            <% else %>
-                                <li class="disabled"><a href="#">Edit</a></li>
-                                <li class="disabled"><a href="#">Delete</a></li>
-                            <% end %>
+                            <li class=""><a href="/company/jobs/edit/<%= job.job_hash_id %>">Edit</a></li>
+                            <li><a onclick="warnDelete('/company/jobs/delete/<%= job.job_hash_id %>')">Delete</a></li>
                           </ul>
                         </div>
                       </td>

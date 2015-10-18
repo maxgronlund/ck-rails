@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :user_hash_id , :null => true
       t.string  :user_email
       t.string  :password_digest
-      t.string  :user_avatar , :null => true
+      t.string  :avatar , :null => true
       t.text    :user_address , :null => true
       t.string  :user_phone , :null => true
       t.integer :user_country

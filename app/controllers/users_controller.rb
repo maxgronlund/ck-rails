@@ -25,7 +25,8 @@ class UsersController < ApplicationController
       password: params[:user][:password],
       user_role: params[:user][:role],
       user_state: params[:user][:state],
-      user_city: params[:user][:city]
+      user_city: params[:user][:city],
+      avatar: params[:user][:avatar]
     })
 
     usid = User.find(currentUser.id)
@@ -53,6 +54,11 @@ class UsersController < ApplicationController
     @editUser.password = params[:user][:password]
     @editUser.user_state = params[:user][:state]
     @editUser.user_city = params[:user][:city]
+
+    if params[:user][:avatar]
+      @editUser.avatar = params[:user][:avatar]
+    end
+
     @editUser.save
 
     redirect_to '/admin/users'

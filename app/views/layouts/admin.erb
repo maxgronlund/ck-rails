@@ -26,7 +26,11 @@
             <li class="nav-header">
               <div class="dropdown profile-element">
                 <span>
-                  <img src="/themes/img/profile_small.jpg" class="img-circle">
+                  <% if @current.avatar_url() %>
+                    <img src="<%= @current.avatar_url() %>" class="img-circle" height="55" width="55">
+                  <% else %>
+                    <img src="/themes/img/profile_small.jpg" class="img-circle">
+                  <% end %>
                 </span>
                 <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
                     <span class="clear">

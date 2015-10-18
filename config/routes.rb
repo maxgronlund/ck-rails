@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get '/admin/articles' => 'article#list'
   get '/admin/articles/new' => 'article#new'
   post '/admin/articles/submit' => 'article#submit'
+  get '/admin/articles/edit/:ids' => 'article#edit'
+  post '/admin/articles/update/:ids' => 'article#update'
 
   # COMPANY ROLE ROUTES
 

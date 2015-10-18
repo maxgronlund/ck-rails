@@ -32,6 +32,7 @@ gem 'time_difference', '~> 0.4.2'
 
 gem 'jwt'
 gem 'redis-rails'
+gem 'carrierwave'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

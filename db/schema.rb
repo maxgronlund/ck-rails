@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 20151017025932) do
     t.string   "user_hash_id"
     t.string   "user_email"
     t.string   "password_digest"
-    t.string   "user_avatar"
+    t.string   "avatar"
     t.text     "user_address"
     t.string   "user_phone"
     t.integer  "user_country"
