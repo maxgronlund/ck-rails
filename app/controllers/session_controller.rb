@@ -9,6 +9,8 @@ class SessionController < ApplicationController
 				redirect_to '/admin'
 			elsif cuser.user_role == 'company'
 				redirect_to '/company'
+			elsif cuser.user_role == 'user'
+				redirect_to '/basic'
 			else
 				redirect_to '/'
 			end

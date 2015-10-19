@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151017025932) do
+ActiveRecord::Schema.define(version: 20151019062836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20151017025932) do
     t.string   "article_title"
     t.string   "article_img_link"
     t.text     "article_body"
+    t.string   "banner"
     t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
@@ -121,6 +122,12 @@ ActiveRecord::Schema.define(version: 20151017025932) do
 
   add_index "salaries", ["job_id"], name: "index_salaries_on_job_id", using: :btree
 
+  create_table "skills", force: :cascade do |t|
+    t.string   "skill_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "states", force: :cascade do |t|
     t.string   "state_name"
     t.integer  "country_id"
@@ -130,6 +137,43 @@ ActiveRecord::Schema.define(version: 20151017025932) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "tag_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_details", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "userdetail_bio"
+    t.text     "userdetail_phone"
+    t.integer  "userdetail_experience"
+    t.integer  "userdetail_rating"
+    t.integer  "userdetail_major"
+    t.string   "curriculumvitae"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "user_educations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "education"
+    t.integer  "year"
+    t.text     "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_experiences", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "instance_name"
+    t.datetime "exp_start"
+    t.datetime "exp_end"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "user_skill_rels", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "skill_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

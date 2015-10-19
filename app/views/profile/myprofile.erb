@@ -1,0 +1,144 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-md-10">
+    <h2><%= @section %></h2>
+    <ol class="breadcrumb">
+      <li><a href="/basic">Basic User</a></li>
+      <li><a href="/basic/profile" class="active">Profile</a></li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" href="#basic">Basic Profile</a>
+            </li>
+            <li class="">
+              <a data-toggle="tab" href="#details">Details</a>
+            </li>
+          </ul>
+        </div>
+        <div class="ibox-content">
+          <div class="tab-content">
+            <div id="basic" class="tab-pane active">
+              <%= form_for(:user , url: '/basic/profile/update/'+@current.user_hash_id , html: { class: 'form form-horizontal'}) do |f| %>
+                  <div class="form-group">
+                    <label class="control-label col-md-2">User Name</label>
+                    <div class="col-md-8">
+                      <%= f.text_field :name , class: 'form-control' , placeholder: 'Name' , value: @current.user_name %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-2">User Email</label>
+                    <div class="col-md-8">
+                      <%= f.text_field :email , class: 'form-control' , placeholder: 'Email' , value: @current.user_email %>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-2">User Password</label>
+                    <div class="col-md-8">
+                      <%= f.password_field :password , class: 'form-control' , placeholder: 'Password' , value: @current.password %>
+                    </div>
+                  </div>
+
+                  <% if @current.avatar_url() %>
+                      <div class="form-group crava">
+                        <label class="control-label col-md-2">Avatar</label>
+                        <div class="col-md-8">
+                          <%= image_tag @current.avatar_url() %>
+                          <a class="btn btn-primary" onclick="chava()">Change</a>
+                        </div>
+                      </div>
+                      <div class="form-group chava">
+                        <label class="control-label col-md-2">Avatar</label>
+                        <div class="col-md-8">
+                          <%= f.file_field :avatar , class: 'form-control'%>
+                        </div>
+                      </div>
+                  <% else %>
+                      <div class="form-group">
+                        <label class="control-label col-md-2">Avatar</label>
+                        <div class="col-md-8">
+                          <%= f.file_field :avatar , class: 'form-control'%>
+                        </div>
+                      </div>
+                  <% end %>
+                  <div class="form-group">
+                    <label class="control-label col-md-2">State</label>
+                    <div class="col-md-8">
+                      <select id="state-select" class="form-control" name="user[state]">
+                        <option>-- select state --</option>
+                        <% @states.each do |st| %>
+                            <% if st.id == @current.user_state %>
+                                <option value="<%= st.id %>" selected><%= st.state_name %></option>
+                            <% else %>
+                                <option value="<%= st.id %>"><%= st.state_name %></option>
+                            <% end %>
+                        <% end %>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group" id="citygroup">
+                    <label class="control-label col-md-2">City</label>
+                    <div class="col-md-8">
+                      <div id="citilist">
+                        <select id="" class="form-control" name="user[city]">
+                          <option>-- select state --</option>
+                          <% @cities.each do |ct| %>
+                              <% if ct.id == @current.user_city %>
+                                  <option value="<%= ct.id %>" selected><%= ct.city_name %></option>
+                              <% else %>
+                                  <option value="<%= ct.id %>"><%= ct.city_name %></option>
+                              <% end %>
+                          <% end %>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary col-md-offset-2 col-md-8">Create</button>
+                  </div>
+              <% end %>
+            </div>
+            <div id="details" class="tab-pane">
+              <%= form_for(:details , url: '/basic/profile/details/update/'+@current.user_hash_id , html: { class: 'form form-horizontal'}) do |f| %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :js do %>
+    <script>
+        $('.chava').hide();
+        $('#state-select').on('change' , function(){
+            var ids = $("#state-select").val();
+            $('#citygroup').show();
+            $.ajax({
+                url : '/ajax/citylist/usr/'+ids,
+                method : 'GET',
+                dataType : 'html',
+                success : function(output){
+                    console.log(output);
+                    $('#citilist').html(output);
+                },
+                error : function(err){
+                    console.log('error');
+                    console.log(err.responseText);
+                }
+            })
+        });
+
+        function chava(){
+            $('.chava').show();
+            $('.crava').hide();
+        }
+    </script>
+<% end %>

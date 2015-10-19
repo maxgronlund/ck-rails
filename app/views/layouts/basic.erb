@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"></meta>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>carikerjaan | company</title>
+  <title>carikerjaan | basic user</title>
   <link rel="stylesheet" type="text/css" href="/themes/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/themes/css/style.css">
   <link rel="stylesheet" type="text/css" href="/themes/css/animate.css">
@@ -38,7 +38,7 @@
                         <strong class="font-bold"><%= @current.user_name %></strong>
                       </span>
                       <span class="text-muted text-xs block">
-                        Company
+                        Basic User
                         <b class="caret"></b>
                       </span>
                     </span>
@@ -53,55 +53,21 @@
           <div class="logo-element">C|K</div>
         </li>
         <% if @active == 'dashboard'%>
-        <li class="active">
-          <a href="/company">Dashboard</a>
-        </li>
-        <li class="">
-          <a href="#">Jobs</a>
-          <ul class="nav nav-second-level collapse">
-            <li class=""><a href="/company/jobs">All Jobs</a></li>
-            <li class=""><a href="/company/jobs/new">New Job</a></li>
-          </ul>
-        </li>
-        <li class="">
-          <a href="/company/payments">Payments</a>
-        </li>
-        <li class="special_link">
-          <a href="#">Upgrade to PRO</a>
-        </li>
-        <% elsif @active == 'jobs' %>
-            <li class="">
-              <a href="/company">Dashboard</a>
-            </li>
             <li class="active">
-              <a href="#">Jobs</a>
-              <ul class="nav nav-second-level collapse">
-                <li class=""><a href="/company/jobs">All Jobs</a></li>
-                <li class=""><a href="/company/jobs/new">New Job</a></li>
-              </ul>
+              <a href="/basic">Dashboard</a>
             </li>
             <li class="">
-              <a href="/company/payments">Payments</a>
-            </li>
-            <li class="special_link">
-              <a href="#">Upgrade to PRO</a>
-            </li>
-        <% elsif @active == "payments" %>
-            <li class="">
-              <a href="/company">Dashboard</a>
+              <a href="/basic/profile">Profile</a>
             </li>
             <li class="">
               <a href="#">Jobs</a>
               <ul class="nav nav-second-level collapse">
-                <li class=""><a href="/company/jobs">All Jobs</a></li>
-                <li class=""><a href="/company/jobs/new">New Job</a></li>
+                <li class=""><a href="/job">Browse</a></li>
+                <li class=""><a href="/basic/application">Applied History</a></li>
               </ul>
             </li>
-            <li class="active">
-              <a href="/company/payments">Payments</a>
-            </li>
             <li class="special_link">
-              <a href="#">Upgrade to PRO</a>
+              <a href="/basic/invitation">Company Invitations</a>
             </li>
         <% else %>
             <li class="">

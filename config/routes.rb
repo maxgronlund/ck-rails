@@ -49,6 +49,11 @@ Rails.application.routes.draw do
   get '/company/payments' => 'company_payment#list'
   get '/company/payments/:ids' => 'company_payment#details'
 
+  # BASIC USER ROLE ROUTES
+
+  get '/basic' => 'basic#dashboard'
+  get '/basic/profile' => 'profile#myprofile'
+
   get '/jwt' => 'jwt#test'
   get '/jwt/decode' => 'jwt#decode'
 

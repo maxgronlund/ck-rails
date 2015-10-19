@@ -262,3 +262,55 @@ Tag.create({
 Tag.create({
                tag_name: 'Kebijakan Dalam Negri'
            })
+
+Skill.create({
+                 skill_name: 'Programming'
+             })
+Skill.create({
+                 skill_name: 'Marketing'
+             })
+Skill.create({
+                 skill_name: 'Accounting'
+             })
+Skill.create({
+                 skill_name: 'Driving'
+             })
+Skill.create({
+                 skill_name: 'Managerial'
+             })
+Skill.create({
+                 skill_name: 'Sys Admin'
+             })
+Skill.create({
+                 skill_name: 'PHP'
+             })
+Skill.create({
+                 skill_name: 'Ruby'
+             })
+Skill.create({
+                 skill_name: 'Android dev'
+             })
+Skill.create({
+                 skill_name: 'iOS dev'
+             })
+Skill.create({
+                 skill_name: 'Web Application'
+             })
+Skill.create({
+                 skill_name: 'Brand Design'
+             })
+Skill.create({
+                 skill_name: 'Photoshop'
+             })
+Skill.create({
+                 skill_name: 'Corel Draw'
+             })
+Skill.create({
+                 skill_name: 'Basic Microsoft Office'
+             })
+Skill.create({
+                 skill_name: 'Hardware Repair'
+             })
+Skill.create({
+                 skill_name: 'Electrical'
+             })
