@@ -142,4 +142,34 @@ class AjaxController < ApplicationController
 
   end
 
+  def addExp
+    if params[:exp][:until] == "-"
+      params[:exp][:until] = Date.now
+    end
+    puts params[:exp]
+    currentExp = UserExperience.create({
+        user_id: params[:exp][:user_id],
+        instance: params[:exp][:instance],
+        position: params[:exp][:position],
+        exp_start: params[:exp][:start],
+        exp_end: params[:exp][:until]
+    })
+
+    html = "<div class=\"feed-element\" id=\"exp"+currentExp.id.to_s+"\">
+    <div class=\"\">
+        Worked at <strong>"+currentExp.instance+"</strong> as <strong>"+currentExp.position+"</strong>
+    <small class=\"text-muted\">"+currentExp.exp_start.to_s+" - "+currentExp.exp_end.to_s+"</small>
+    <a onclick=\"delExp('"+currentExp.id.to_s+"')\" class=\"label label-danger\"><i class=\"fa fa-trash\"></i></a>
+    </div></div>"
+
+    render :json => html.to_json()
+  end
+
+  def delExp
+    UserExperience.destroy(params[:ids])
+
+    msg = "exp deleted"
+    render :json => msg.to_json()
+  end
+
 end

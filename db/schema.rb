@@ -164,11 +164,12 @@ ActiveRecord::Schema.define(version: 20151019062836) do
 
   create_table "user_experiences", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "instance_name"
+    t.string   "instance"
+    t.string   "position"
     t.datetime "exp_start"
     t.datetime "exp_end"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_skill_rels", force: :cascade do |t|

@@ -9,6 +9,8 @@ class ProfileController < ApplicationController
     @section = 'Profile'
     @states = State.all
     @cities = City.all
+    @exps = UserExperience.where(:user_id => session[:user_id])
+    @categories = Category.all
   end
 
 end
