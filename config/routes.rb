@@ -53,6 +53,7 @@ Rails.application.routes.draw do
 
   get '/basic' => 'basic#dashboard'
   get '/basic/profile' => 'profile#myprofile'
+  post '/basic/profile/details/update' => 'profile#updatedetails'
 
   post '/ajax/exp/add' => 'ajax#addExp'
   get '/ajax/exp/del/:ids' => 'ajax#delExp'

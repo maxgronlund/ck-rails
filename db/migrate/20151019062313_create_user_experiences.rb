@@ -4,8 +4,8 @@ class CreateUserExperiences < ActiveRecord::Migration
       t.integer :user_id
       t.string :instance
       t.string :position
-      t.datetime :exp_start
-      t.datetime :exp_end , :null => true
+      t.datetime :started
+      t.datetime :ends
       t.timestamps null: false
     end
   end

@@ -1,5 +1,6 @@
 class AjaxController < ApplicationController
   protect_from_forgery with: :null_session
+  skip_before_filter  :verify_authenticity_token
 
   def citylist
     stateid = params[:state]
@@ -143,22 +144,19 @@ class AjaxController < ApplicationController
   end
 
   def addExp
-    if params[:exp][:until] == "-"
-      params[:exp][:until] = Date.now
-    end
-    puts params[:exp]
+
     currentExp = UserExperience.create({
-        user_id: params[:exp][:user_id],
-        instance: params[:exp][:instance],
-        position: params[:exp][:position],
-        exp_start: params[:exp][:start],
-        exp_end: params[:exp][:until]
-    })
+                                           started: params[:exp][:exp_start],
+                                           ends: params[:exp][:exp_end],
+                                           instance: params[:exp][:instance],
+                                           position: params[:exp][:position],
+                                           user_id: params[:exp][:user_id]
+                                       })
 
     html = "<div class=\"feed-element\" id=\"exp"+currentExp.id.to_s+"\">
     <div class=\"\">
         Worked at <strong>"+currentExp.instance+"</strong> as <strong>"+currentExp.position+"</strong>
-    <small class=\"text-muted\">"+currentExp.exp_start.to_s+" - "+currentExp.exp_end.to_s+"</small>
+    <small class=\"text-muted\"><span class=\"time\">"+currentExp.started.to_s+"</span> - <span class=\"time\">"+currentExp.ends.to_s+"</span></small>
     <a onclick=\"delExp('"+currentExp.id.to_s+"')\" class=\"label label-danger\"><i class=\"fa fa-trash\"></i></a>
     </div></div>"
 

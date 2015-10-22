@@ -105,11 +105,15 @@
               <% end %>
             </div>
             <div id="details" class="tab-pane">
-              <%= form_for(:details , url: '/basic/profile/details/update/'+@current.user_hash_id , html: { class: 'form form-horizontal'}) do |f| %>
+              <%= form_for(:details , url: '/basic/profile/details/update' , html: { class: 'form form-horizontal'}) do |f| %>
                 <div class="form-group">
                   <label class="control-label col-md-2">Bio</label>
                   <div class="col-md-8">
-                    <%= f.text_area :bio , class: 'form-control' , id: 'bio' %>
+                    <% if @currentDetails %>
+                        <%= f.text_area :bio , class: 'form-control' , id: 'bio' , value: @currentDetails.userdetail_bio %>
+                    <% else %>
+                        <%= f.text_area :bio , class: 'form-control' , id: 'bio'%>
+                    <% end %>
                   </div>
                 </div>
                 <div class="form-group">
@@ -121,7 +125,7 @@
                             <div class="feed-element" id="exp<%= exp.id %>">
                               <div class="">
                                 Worked at <strong><%= exp.instance %></strong> as <strong><%= exp.position %></strong>
-                                <small class="text-muted"><%= exp.exp_start %> - <%= exp.exp_end %></small>
+                                <small class="text-muted"><span class="time"><%= exp.started.to_s.to_date %></span> - <span class="time"><%= exp.ends.to_s.to_date %></span></small>
                                 <a onclick="delExp('<%= exp.id %>')" class="label label-danger"><i class="fa fa-trash"></i></a>
                               </div>
                             </div>
@@ -148,6 +152,9 @@
                   <div class="col-md-8">
                     <%= f.file_field :curriculumvitae , class: 'form-control'%>
                   </div>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary col-md-8 col-md-offset-2">Save</button>
                 </div>
               <% end %>
             </div>
@@ -212,11 +219,16 @@
 
 <% content_for :js do %>
     <script src="/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/bower_components/moment/moment.js"></script>
     <script src="/ckeditor/ckeditor.js"></script>
     <script>
         $('.chava').hide();
         CKEDITOR.replace('bio');
         $('.datepicker').datepicker({});
+        $('.time').each(function(){
+            var Tformat = moment($(this).text()).format('LL');
+            $(this).text(Tformat);
+        });
         $('#state-select').on('change' , function(){
             var ids = $("#state-select").val();
             $('#citygroup').show();
@@ -246,6 +258,9 @@
             var start = $('#exp-start').val();
             var until = $('#exp-until').val();
 
+            console.log(start);
+            console.log(until);
+
             $.ajax({
                 method: "POST",
                 url: "/ajax/exp/add",
@@ -253,8 +268,8 @@
                    "exp" : {
                        "instance" : instance,
                        "position" : position,
-                       "start" : start,
-                       "until" : until,
+                       "exp_start" : start,
+                       "exp_end" : until,
                        "user_id": <%= @current.id %>
                     }
                 },

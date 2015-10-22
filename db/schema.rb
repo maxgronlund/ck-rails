@@ -166,8 +166,8 @@ ActiveRecord::Schema.define(version: 20151019062836) do
     t.integer  "user_id"
     t.string   "instance"
     t.string   "position"
-    t.datetime "exp_start"
-    t.datetime "exp_end"
+    t.datetime "started"
+    t.datetime "ends"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
