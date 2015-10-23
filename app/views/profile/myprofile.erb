@@ -25,7 +25,7 @@
         <div class="ibox-content">
           <div class="tab-content">
             <div id="basic" class="tab-pane active">
-              <%= form_for(:user , url: '/basic/profile/update/'+@current.user_hash_id , html: { class: 'form form-horizontal'}) do |f| %>
+              <%= form_for(:user , url: '/basic/profile/update/' , html: { class: 'form form-horizontal'}) do |f| %>
                   <div class="form-group">
                     <label class="control-label col-md-2">User Name</label>
                     <div class="col-md-8">
@@ -140,19 +140,50 @@
                 <div class="form-group">
                   <label class="col-md-2 control-label">Skill Major</label>
                   <div class="col-md-8">
-                    <select class="form-control">
+                    <select class="form-control" name="details[major]">
                         <% @categories.each do |cate| %>
-                            <option value="<%= cate.id %>"><%= cate.category_name %></option>
+                            <% if @currentDetails.userdetail_major == cate.id %>
+                              <option value="<%= cate.id %>" selected><%= cate.category_name %></option>
+                            <% else %>
+                                <option value="<%= cate.id %>"><%= cate.category_name %></option>
+                            <% end %>
                         <% end %>
                     </select>
                   </div>
                 </div>
-                <div class="form-group">
-                  <label class="control-label col-md-2">Curriculum Vitae</label>
-                  <div class="col-md-8">
-                    <%= f.file_field :curriculumvitae , class: 'form-control'%>
-                  </div>
-                </div>
+                <% if !@currentDetails.curriculumvitae %>
+                    <div class="form-group">
+                      <label class="control-label col-md-2">Curriculum Vitae</label>
+                      <div class="col-md-8">
+                        <%= f.file_field :curriculumvitae , class: 'form-control'%>
+                      </div>
+                    </div>
+                <% else %>
+                      <div class="form-group" id="uploader">
+                        <label class="control-label col-md-2">Curriculum Vitae</label>
+                        <div class="col-md-8">
+                          <%= f.file_field :curriculumvitae , class: 'form-control'%>
+                        </div>
+                      </div>
+                      <div class="form-group" id="file-ic">
+                        <label class="control-label col-md-2">Curriculum Vitae</label>
+                        <div class="file-box col-md-3">
+                          <div class="file">
+                            <a href="<%= @currentDetails.curriculumvitae_url()%>">
+                              <div class="icon">
+                                <i class="fa fa-file"></i>
+                              </div>
+                              <div class="file-name">
+                                Curriculum Vitae
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <a class="btn btn-primary btn-sm" onclick="showUploader()">Change File</a>
+                        </div>
+                      </div>
+                <% end %>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary col-md-8 col-md-offset-2">Save</button>
                 </div>
@@ -225,6 +256,7 @@
         $('.chava').hide();
         CKEDITOR.replace('bio');
         $('.datepicker').datepicker({});
+        $('#uploader').hide();
         $('.time').each(function(){
             var Tformat = moment($(this).text()).format('LL');
             $(this).text(Tformat);
@@ -295,6 +327,11 @@
                    }
                 });
             }
+        }
+
+        function showUploader(){
+            $('#uploader').show();
+            $('#file-ic').hide();
         }
     </script>
 <% end %>

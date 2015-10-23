@@ -170,4 +170,14 @@ class AjaxController < ApplicationController
     render :json => msg.to_json()
   end
 
+  def ajaxcityregister
+    @cities = City.where(:state_id => params[:ids])
+    html = "<div class=\"form-group\"><select class=\"form-control\" name=\"register[city]\">"
+    @cities.each do |c|
+      html+= "<option value=\""+c.id.to_s+"\">"+c.city_name+"</option>"
+    end
+    html+="</select>"
+    render :json => html.to_json()
+  end
+
 end

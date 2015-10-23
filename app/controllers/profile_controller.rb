@@ -35,7 +35,21 @@ class ProfileController < ApplicationController
     end
 
     flash[:success] = "Profile updated."
-    redirect_to '/basic'
+    redirect_to '/basic/profile'
+  end
+
+  def update
+    currentUser = User.find(session[:user_id])
+    currentUser.user_name = params[:user][:name]
+    currentUser.user_email = params[:user][:email]
+    currentUser.password = params[:user][:password]
+    currentUser.avatar = params[:user][:avatar]
+    currentUser.user_state = params[:user][:state]
+    currentUser.user_city = params[:user][:city]
+    currentUser.save
+
+    flash[:success] = "Profile updated."
+    redirect_to '/basic/profile'
   end
 
 end

@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   root 'home#landing'
   post '/auth' => 'session#auth'
   get '/logout' => 'session#destroy'
+  get '/register' => 'public#register'
+  post '/signup' => 'public#signup'
+
+  get '/ajax/reg/city/:ids' => 'ajax#ajaxcityregister'
 
   # ADMIN ROLE ROUTES
 
@@ -53,6 +57,7 @@ Rails.application.routes.draw do
 
   get '/basic' => 'basic#dashboard'
   get '/basic/profile' => 'profile#myprofile'
+  post '/basic/profile/update' => 'profile#update'
   post '/basic/profile/details/update' => 'profile#updatedetails'
 
   post '/ajax/exp/add' => 'ajax#addExp'

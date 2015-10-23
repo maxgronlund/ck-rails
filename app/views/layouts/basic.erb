@@ -69,9 +69,43 @@
             <li class="special_link">
               <a href="/basic/invitation">Company Invitations</a>
             </li>
+        <% elsif @active == 'profile' %>
+            <li class="">
+              <a href="/basic">Dashboard</a>
+            </li>
+            <li class="active">
+              <a href="/basic/profile">Profile</a>
+            </li>
+            <li class="">
+              <a href="#">Jobs</a>
+              <ul class="nav nav-second-level collapse">
+                <li class=""><a href="/job">Browse</a></li>
+                <li class=""><a href="/basic/application">Applied History</a></li>
+              </ul>
+            </li>
+            <li class="special_link">
+              <a href="/basic/invitation">Company Invitations</a>
+            </li>
+        <% elsif @active == 'jobs' %>
+            <li class="">
+              <a href="/basic">Dashboard</a>
+            </li>
+            <li class="">
+              <a href="/basic/profile">Profile</a>
+            </li>
+            <li class="active">
+              <a href="#">Jobs</a>
+              <ul class="nav nav-second-level collapse">
+                <li class=""><a href="/job">Browse</a></li>
+                <li class=""><a href="/basic/application">Applied History</a></li>
+              </ul>
+            </li>
+            <li class="special_link">
+              <a href="/basic/invitation">Company Invitations</a>
+            </li>
         <% else %>
             <li class="">
-              <a href="/company">Dashboard</a>
+              <a href="/basic">Dashboard</a>
             </li>
             <li class="">
               <a href="#">Jobs</a>
@@ -81,7 +115,7 @@
               </ul>
             </li>
             <li class="">
-              <a href="/company/payments">Payments</a>
+              <a href="/basic/payments">Payments</a>
             </li>
             <li class="special_link">
               <a href="#">Upgrade to PRO</a>
