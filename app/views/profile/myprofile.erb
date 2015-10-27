@@ -141,6 +141,7 @@
                   <label class="col-md-2 control-label">Skill Major</label>
                   <div class="col-md-8">
                     <select class="form-control" name="details[major]">
+                        <% if @currentDetails %>
                         <% @categories.each do |cate| %>
                             <% if @currentDetails.userdetail_major == cate.id %>
                               <option value="<%= cate.id %>" selected><%= cate.category_name %></option>
@@ -148,9 +149,15 @@
                                 <option value="<%= cate.id %>"><%= cate.category_name %></option>
                             <% end %>
                         <% end %>
+                        <% else %>
+                            <% @categories.each do |cate| %>
+                              <option value="<%= cate.id %>"><%= cate.category_name %></option>
+                            <% end %>
+                        <% end %>
                     </select>
                   </div>
                 </div>
+                <% if @currentDetails %>
                 <% if !@currentDetails.curriculumvitae %>
                     <div class="form-group">
                       <label class="control-label col-md-2">Curriculum Vitae</label>
@@ -183,6 +190,7 @@
                           <a class="btn btn-primary btn-sm" onclick="showUploader()">Change File</a>
                         </div>
                       </div>
+                <% end %>
                 <% end %>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary col-md-8 col-md-offset-2">Save</button>

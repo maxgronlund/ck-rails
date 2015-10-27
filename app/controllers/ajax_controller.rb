@@ -145,9 +145,14 @@ class AjaxController < ApplicationController
 
   def addExp
 
+    puts('---------DEBUG-------------')
+    puts(params[:exp][:exp_start])
+    puts(params[:exp][:exp_end])
+    puts('---------DEBUG-------------')
+
     currentExp = UserExperience.create({
-                                           started: params[:exp][:exp_start],
-                                           ends: params[:exp][:exp_end],
+                                           started: Chronic.parse(params[:exp][:exp_start]),
+                                           ends: Chronic.parse(params[:exp][:exp_end]),
                                            instance: params[:exp][:instance],
                                            position: params[:exp][:position],
                                            user_id: params[:exp][:user_id]
