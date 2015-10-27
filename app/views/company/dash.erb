@@ -45,7 +45,21 @@
     <script type="text/javascript">
         $(document).ready(function(){
             var LD = {
-                labels: ["June" , "July" , "August" , "September" , "October"],
+//                labels: ["June" , "July" , "August" , "September" , "October"],
+                <% if @timeline.size < 2 %>
+                labels: [
+                    "start",
+                    <% @timeline.each do |t| %>
+                        "<%= t.created_at.strftime("%B") %>",
+                    <% end %>
+                ],
+                <% else %>
+                labels: [
+                    <% @timeline.each do |t| %>
+                        "<%= t.created_at.strftime("%B") %>",
+                    <% end %>
+                ],
+                <% end %>
                 datasets: [
                     {
                         label: "Example dataset",
@@ -55,7 +69,21 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(26,179,148,1)",
-                        data: [45,28, 48, 70, 55 ]
+//                        data: [45,20]
+                        <% if @timeline.size < 2 %>
+                        data: [
+                            0,
+                            <% @timeline.each do |t| %>
+                                <%= t.count %>,
+                            <% end %>
+                        ]
+                        <% else %>
+                        data: [
+                            <% @timeline.each do |t| %>
+                            <%= t.count %>,
+                            <% end %>
+                        ]
+                        <% end %>
                     }
                 ]
             };
