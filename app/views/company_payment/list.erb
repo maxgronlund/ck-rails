@@ -95,7 +95,7 @@
                               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li><a href="/company/payments/<%= pay.payment_hash_id %>">Details</a></li>
                                 <li class=""><a href="/company/payments/<%= pay.payment_hash_id %>/pay">Pay</a></li>
-                                <li><a href="/company/payments/<%= pay.payment_hash_id %>/report">Report</a></li>
+                                <li><a href="/company/payments/<%= pay.payment_hash_id %>/revoke">Revoke</a></li>
                               </ul>
                             </div>
                           </td>
@@ -235,7 +235,7 @@
 
         function findPayByFilter(){
             $.ajax({
-                url: "/ajax/payment/filter",
+                url: "/ajax/payment/filter/company",
                 type: "POST",
                 data: {
                     start: $('#filter-from').val(),

@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   get '/company/payments' => 'company_payment#list'
   get '/company/payments/:ids' => 'company_payment#details'
 
+  post '/ajax/payment/filter/company' => 'ajax#paybydatecompany'
+
   # BASIC USER ROLE ROUTES
 
   get '/basic' => 'basic#dashboard'

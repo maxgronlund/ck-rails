@@ -1,3 +1,81 @@
 <div class="row border-bottom white-bg dashboard-header">
-
+    <div class="col-md-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-content">
+          <div class="col-md-7">
+            <div class="row">
+              <h3>Job Subscription</h3>
+              <p>This year</p>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <canvas id="lineChart" height="100" width="450" style="width: 450px; height: 100px;"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-md-offset-1">
+            <div class="row">
+              <h3>Top Hits</h3>
+            </div>
+            <div class="row">
+                <h2 class="no-margins">Marketing Leader</h2>
+                <small>This week hits</small>
+                <div class="stat-percent">77% <i class="fa fa-level-up text-navy"></i></div>
+                <div class="progress progress-mini">
+                  <div style="width: 77%;" class="progress-bar"></div>
+                </div>
+                <small>12 days remaining</small>
+                <br>
+                <h2 class="no-margins">Front Liners</h2>
+                <small>This week hits</small>
+                <div class="stat-percent">55% <i class="fa fa-level-down text-navy"></i></div>
+                <div class="progress progress-mini">
+                    <div style="width: 55%;" class="progress-bar"></div>
+                </div>
+              <small>12 days remaining</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
+
+<% content_for :js do %>
+    <script src="/themes/js/plugins/chartJs/Chart.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var LD = {
+                labels: ["June" , "July" , "August" , "September" , "October"],
+                datasets: [
+                    {
+                        label: "Example dataset",
+                        fillColor: "rgba(26,179,148,0.5)",
+                        strokeColor: "rgba(26,179,148,0.7)",
+                        pointColor: "rgba(26,179,148,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(26,179,148,1)",
+                        data: [45,28, 48, 70, 55 ]
+                    }
+                ]
+            };
+            var lineOptions = {
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                bezierCurve: true,
+                bezierCurveTension: 0.4,
+                pointDot: true,
+                pointDotRadius: 4,
+                pointDotStrokeWidth: 1,
+                pointHitDetectionRadius: 20,
+                datasetStroke: true,
+                datasetStrokeWidth: 2,
+                datasetFill: true,
+                responsive: true,
+            };
+            var ctx = document.getElementById("lineChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Line(LD, lineOptions);
+        });
+    </script>
+<% end %>
