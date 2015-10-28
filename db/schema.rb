@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20151027034440) do
   create_table "job_subscription_rels", force: :cascade do |t|
     t.integer  "job_id"
     t.integer  "user_id"
+    t.string   "month"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -15,24 +15,33 @@
           </div>
           <div class="col-md-3 col-md-offset-1">
             <div class="row">
-              <h3>Top Hits</h3>
+              <h3>Weekly Subscriber Growth</h3>
             </div>
             <div class="row">
-                <h2 class="no-margins">Marketing Leader</h2>
-                <small>This week hits</small>
-                <div class="stat-percent">77% <i class="fa fa-level-up text-navy"></i></div>
-                <div class="progress progress-mini">
-                  <div style="width: 77%;" class="progress-bar"></div>
-                </div>
-                <small>12 days remaining</small>
-                <br>
-                <h2 class="no-margins">Front Liners</h2>
-                <small>This week hits</small>
-                <div class="stat-percent">55% <i class="fa fa-level-down text-navy"></i></div>
-                <div class="progress progress-mini">
-                    <div style="width: 55%;" class="progress-bar"></div>
-                </div>
-              <small>12 days remaining</small>
+                  <small>This week hits</small>
+                  <div class="stat-percent"><%= @percent.to_s %> <i class="fa fa-level-up text-navy"></i></div>
+                  <div class="progress progress-mini">
+                  <div style="width: <%= @percent.to_s %>%;" class="progress-bar"></div>
+                  </div>
+                  <small><%= @thisWeekSubscriber.size.to_s %> subscribers this week</small>
+                  <br>
+                  <h2><%= @pays.size %> <small>Unfinished Transactions</small></h2>
+                  <h2><%= @jobs.size %> <small>Active Jobs</small></h2>
+                <!--<h2 class="no-margins">Marketing Leader</h2>-->
+                <!--<small>This week hits</small>-->
+                <!--<div class="stat-percent">77% <i class="fa fa-level-up text-navy"></i></div>-->
+                <!--<div class="progress progress-mini">-->
+                  <!--<div style="width: 77%;" class="progress-bar"></div>-->
+                <!--</div>-->
+                <!--<small>12 days remaining</small>-->
+                <!--<br>-->
+                <!--<h2 class="no-margins">Front Liners</h2>-->
+                <!--<small>This week hits</small>-->
+                <!--<div class="stat-percent">55% <i class="fa fa-level-down text-navy"></i></div>-->
+                <!--<div class="progress progress-mini">-->
+                    <!--<div style="width: 55%;" class="progress-bar"></div>-->
+                <!--</div>-->
+              <!--<small>12 days remaining</small>-->
             </div>
           </div>
         </div>
@@ -50,13 +59,13 @@
                 labels: [
                     "start",
                     <% @timeline.each do |t| %>
-                        "<%= t.created_at.strftime("%B") %>",
+                        "<%= t.month %>",
                     <% end %>
                 ],
                 <% else %>
                 labels: [
                     <% @timeline.each do |t| %>
-                        "<%= t.created_at.strftime("%B") %>",
+                        "<%= t.month %>",
                     <% end %>
                 ],
                 <% end %>
