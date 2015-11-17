@@ -4,6 +4,10 @@
 body {
     /*background: #99cccc;*/
     background: #3498DB;
+    overflow-x:hidden;
+    width:100%;
+    max-width:100%;
+    min-width:100%;
 }
 #banner {
     background: url("/assets/img/urban.png") no-repeat center;
@@ -28,4 +32,8 @@ body {
 .job-footer {
     padding-top: 90px;
     /*height: 70px;*/
+}
+
+.media-heading {
+    margin-left: 15;
 }

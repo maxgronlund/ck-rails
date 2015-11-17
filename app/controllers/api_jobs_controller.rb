@@ -18,11 +18,11 @@ class ApiJobsController < ApplicationController
     if(category == "0" && location == "0")
       jobs = Job.joins(:payment).where(:payments => { :payment_status => 'paid'}).where("job_start <= ? ",today).where('lower(job_name) LIKE ? OR lower(job_description) LIKE ?' , '%'+query.downcase+'%' , '%'+query.downcase+'%')
     elsif  (category != "0" && location == "0")
-      jobs = Job.joins(:payment).where(:payments => { :payment_status => 'paid'}).where("job_start <= ? ",today).where(:category_id => category)
+      jobs = Job.joins(:payment).where(:payments => { :payment_status => 'paid'}).where("job_start <= ? ",today).where(:category_id => category).where('lower(job_name) LIKE ? OR lower(job_description) LIKE ?' , '%'+query.downcase+'%' , '%'+query.downcase+'%')
     elsif (category == "0" && location != "0" )
-      jobs = Job.joins(:payment).where(:payments => { :payment_status => 'paid'}).where("job_start <= ? ",today).where(:state_id => location)
+      jobs = Job.joins(:payment).where(:payments => { :payment_status => 'paid'}).where("job_start <= ? ",today).where(:state_id => location).where('lower(job_name) LIKE ? OR lower(job_description) LIKE ?' , '%'+query.downcase+'%' , '%'+query.downcase+'%')
     else
-      jobs = Job.joins(:payment).where(:payments => { :payment_status => 'paid'}).where("job_start <= ? ",today).where(:state_id => location).where(:category_id => category)
+      jobs = Job.joins(:payment).where(:payments => { :payment_status => 'paid'}).where("job_start <= ? ",today).where(:state_id => location).where(:category_id => category).where('lower(job_name) LIKE ? OR lower(job_description) LIKE ?' , '%'+query.downcase+'%' , '%'+query.downcase+'%')
     end
 
     job = Array.new
@@ -30,9 +30,11 @@ class ApiJobsController < ApplicationController
     if jobs.length > 0
       jobs.each do |j|
         job.push({
+                     job_hash_id: j.job_hash_id,
                      job_name: j.job_name,
                      job_description: j.job_description,
                      category: j.category.category_name,
+                     salary: j.salary.salary_string,
                      state: j.state.state_name,
                      city: j.city.city_name,
                      user: {
