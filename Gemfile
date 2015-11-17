@@ -31,7 +31,10 @@ gem 'stamp'
 gem 'time_difference', '~> 0.4.2'
 
 gem 'jwt'
+gem 'redis'
+gem 'redis-namespace'
 gem 'redis-rails'
+gem 'redis-rack-cache'
 gem 'carrierwave'
 # Use Unicorn as the app server
 # gem 'unicorn'
