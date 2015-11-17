@@ -24,8 +24,8 @@ class UsersController < ApplicationController
       user_email: params[:user][:email],
       password: params[:user][:password],
       user_role: params[:user][:role],
-      user_state: params[:user][:state],
-      user_city: params[:user][:city],
+      state_id: params[:user][:state],
+      city_id: params[:user][:city],
       avatar: params[:user][:avatar]
     })
 
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     @active = 'users'
     @editUser = User.where(:user_hash_id => params[:ids]).first
     @states = State.all
-    @cities = City.where(:state_id => @editUser.user_state)
+    @cities = City.where(:state_id => @editUser.state_id)
     @roles = Role.all
   end
 
@@ -52,8 +52,8 @@ class UsersController < ApplicationController
     @editUser.user_email = params[:user][:email]
     @editUser.user_role = params[:user][:role]
     @editUser.password = params[:user][:password]
-    @editUser.user_state = params[:user][:state]
-    @editUser.user_city = params[:user][:city]
+    @editUser.state_id = params[:user][:state]
+    @editUser.city_id = params[:user][:city]
 
     if params[:user][:avatar]
       @editUser.avatar = params[:user][:avatar]

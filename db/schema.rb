@@ -68,12 +68,11 @@ ActiveRecord::Schema.define(version: 20151027034440) do
     t.string   "job_name"
     t.string   "job_hash_id"
     t.text     "job_description"
-    t.integer  "job_salary"
-    t.integer  "job_category"
-    t.integer  "job_creator"
-    t.integer  "job_country"
-    t.integer  "job_state"
-    t.integer  "job_city"
+    t.integer  "salary_id"
+    t.integer  "category_id"
+    t.integer  "country_id"
+    t.integer  "state_id"
+    t.integer  "city_id"
     t.datetime "job_start"
     t.datetime "job_valid"
     t.boolean  "job_is_fake"
@@ -97,16 +96,15 @@ ActiveRecord::Schema.define(version: 20151027034440) do
 
   create_table "payments", force: :cascade do |t|
     t.string   "payment_hash_id"
-    t.integer  "payment_job"
+    t.integer  "job_id"
     t.string   "payment_status"
     t.integer  "payment_price"
     t.integer  "payment_days"
-    t.integer  "payment_creator"
+    t.integer  "user_id"
     t.boolean  "payment_approval"
     t.datetime "payment_approved_at"
     t.datetime "payment_paid_at"
     t.string   "payment_method"
-    t.integer  "job_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
@@ -153,12 +151,12 @@ ActiveRecord::Schema.define(version: 20151027034440) do
     t.integer  "user_id"
     t.text     "userdetail_bio"
     t.text     "userdetail_phone"
-    t.integer  "userdetail_experience"
+    t.integer  "experience_id"
     t.integer  "userdetail_rating"
-    t.integer  "userdetail_major"
+    t.integer  "education_id"
     t.string   "curriculumvitae"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "user_educations", force: :cascade do |t|
@@ -195,9 +193,9 @@ ActiveRecord::Schema.define(version: 20151027034440) do
     t.string   "avatar"
     t.text     "user_address"
     t.string   "user_phone"
-    t.integer  "user_country"
-    t.integer  "user_state"
-    t.integer  "user_city"
+    t.integer  "country_id"
+    t.integer  "state_id"
+    t.integer  "city_id"
     t.string   "user_role"
     t.string   "flag"
     t.datetime "created_at",      null: false

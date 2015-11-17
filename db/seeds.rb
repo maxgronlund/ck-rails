@@ -17,26 +17,13 @@ User.create({
 	user_hash_id: hashid.encode(1),
 	user_address: 'Bpp',
 	user_phone: '411432',
-	user_country: '1',
-	user_state: '1',
-	user_city: '1',
+	country_id: '1',
+	state_id: '1',
+	city_id: '1',
 	user_role: 'admin',
   flag: 'active'
 })
 
-User.create({
-	user_name: 'Pied Piper',
-	user_email: 'pied@piper.com',
-	password: '12345',
-	user_hash_id: hashid.encode(2),
-	user_address: 'Bpp',
-	user_phone: '411432',
-	user_country: '1',
-	user_state: '1',
-	user_city: '1',
-	user_role: 'company',
-  flag: 'active'
-})
 
 Category.create({
   category_name:'Agriculture'

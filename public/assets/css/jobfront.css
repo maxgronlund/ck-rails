@@ -1,0 +1,31 @@
+.navbar-inner {
+    background:transparent;
+}
+body {
+    /*background: #99cccc;*/
+    background: #3498DB;
+}
+#banner {
+    background: url("/assets/img/urban.png") no-repeat center;
+    height: 290px;
+}
+.top-menu li a{
+    color: #fff;
+}
+
+.navbar-brand {
+    color: #fff;
+}
+
+/* box */
+
+.job-box {
+    background : #fff;
+    padding: 15px;
+    /*height: 450px;*/
+}
+
+.job-footer {
+    padding-top: 90px;
+    /*height: 70px;*/
+}

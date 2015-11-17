@@ -77,7 +77,7 @@
                   <select id="state-select" class="form-control" name="user[state]">
                     <option>-- select state --</option>
                     <% @states.each do |st| %>
-                        <% if st.id == @editUser.user_state %>
+                        <% if st.id == @editUser.state_id %>
                             <option value="<%= st.id %>" selected><%= st.state_name %></option>
                         <% else %>
                             <option value="<%= st.id %>"><%= st.state_name %></option>
@@ -93,7 +93,7 @@
                     <select id="" class="form-control" name="user[city]">
                       <option>-- select state --</option>
                       <% @cities.each do |ct| %>
-                          <% if ct.id == @editUser.user_city %>
+                          <% if ct.id == @editUser.city_id %>
                               <option value="<%= ct.id %>" selected><%= ct.city_name %></option>
                           <% else %>
                               <option value="<%= ct.id %>"><%= ct.city_name %></option>

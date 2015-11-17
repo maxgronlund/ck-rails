@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/logout' => 'session#destroy'
   get '/register' => 'public#register'
   post '/signup' => 'public#signup'
+  get '/job' => 'public#job'
 
   get '/ajax/reg/city/:ids' => 'ajax#ajaxcityregister'
 
@@ -65,10 +66,12 @@ Rails.application.routes.draw do
   post '/ajax/exp/add' => 'ajax#addExp'
   get '/ajax/exp/del/:ids' => 'ajax#delExp'
 
+  # API ROUTES
+
   get '/jwt' => 'jwt#test'
   get '/jwt/decode' => 'jwt#decode'
 
-  get '/db' => 'job#test'
+  get '/api/v1/jobs' => 'api_jobs#list'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

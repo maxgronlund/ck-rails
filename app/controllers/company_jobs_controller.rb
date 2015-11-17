@@ -24,12 +24,12 @@ class CompanyJobsController < ApplicationController
     currentJob = Job.create({
                                 job_name: params[:job][:name],
                                 job_description: params[:job][:description],
-                                job_salary: params[:job][:salary],
-                                job_category: params[:job][:category],
+                                salary_id: params[:job][:salary],
+                                category_id: params[:job][:category],
                                 job_start: Chronic.parse(params[:job][:start]),
                                 job_valid: Chronic.parse(params[:job][:valid]),
-                                job_state: params[:job][:state],
-                                job_city: params[:job][:city],
+                                state_id: params[:job][:state],
+                                city_id: params[:job][:city],
                                 user_id: session[:user_id],
                                 job_is_fake: false,
                                 job_status: 'OK',
@@ -48,7 +48,7 @@ class CompanyJobsController < ApplicationController
                                         payment_status: 'unpaid',
                                         payment_price: price,
                                         payment_days: diff,
-                                        payment_creator: session[:user_id],
+                                        user_id: session[:user_id],
                                         payment_approval: false
                                     })
 
@@ -84,7 +84,7 @@ class CompanyJobsController < ApplicationController
       @categories = Category.all.order(:category_name)
       @salaries = Salary.all
       @states = State.all
-      @cities = City.where(:state_id => @currentJob.job_state)
+      @cities = City.where(:state_id => @currentJob.state_id)
     end
   end
 

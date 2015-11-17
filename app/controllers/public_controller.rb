@@ -23,4 +23,10 @@ class PublicController < ApplicationController
 
     redirect_to '/'
   end
+
+  def job
+    @current = User.find(session[:user_id])
+    @states  = State.all
+    @categories = Category.all
+  end
 end

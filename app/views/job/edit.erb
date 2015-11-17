@@ -32,7 +32,7 @@
                 <div class="col-md-8">
                   <select class="form-control" name="job[category]" required>
                     <% @categories.each do |cat| %>
-                        <% if cat.id == @currentJob.job_category %>
+                        <% if cat.id == @currentJob.category_id %>
                             <option selected value="<%= cat.id %>"><%= cat.category_name %></option>
                         <% else %>
                             <option value="<%= cat.id %>"><%= cat.category_name %></option>
@@ -47,7 +47,7 @@
                 <div class="col-md-8">
                   <select class="form-control" name="job[salary]" required>
                     <% @salaries.each do |sal| %>
-                        <% if sal.id == @currentJob.job_salary %>
+                        <% if sal.id == @currentJob.salary_id %>
                             <option selected value="<%= sal.salary_code %>"><%= sal.salary_string %></option>
                         <% else %>
                             <option value="<%= sal.salary_code %>"><%= sal.salary_string %></option>
@@ -62,7 +62,7 @@
                   <select class="form-control" name="job[state]" id="state-select">
                     <option>-- select state --</option>
                     <% @states.each do |st| %>
-                        <% if st.id == @currentJob.job_state %>
+                        <% if st.id == @currentJob.state_id %>
                             <option selected value="<%= st.id %>"><%= st.state_name %></option>
                         <% else %>
                             <option value="<%= st.id %>"><%= st.state_name %></option>
@@ -77,7 +77,7 @@
                   <div id="citilist">
                     <select class="form-control" name="job[city]" required>
                       <% @cities.each do |ct| %>
-                        <% if ct.id == @currentJob.job_city %>
+                        <% if ct.id == @currentJob.city_id %>
                             <option selected value="<%= ct.id %>"><%= ct.city_name %></option>
                         <% else %>
                               <option value="<%= ct.id %>"><%= ct.city_name %></option>

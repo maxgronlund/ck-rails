@@ -13,6 +13,10 @@ class CompanyController < ApplicationController
     @thisWeekSubscriber = JobSubscriptionRel.find_by_sql('select * from job_subscription_rels inner join jobs on job_subscription_rels.job_id = jobs.id where jobs.user_id = \''+session[:user_id].to_s+'\'')
 
     @percent = BigDecimal.new(@thisWeekSubscriber.size - @lastWeekSubscriber.size) / @thisWeekSubscriber.size * 100
+    @positive = true
+    if(@thisWeekSubscriber.size < @lastWeekSubscriber.size)
+      @positive = false;
+    end
     @pays = Job.find_by_sql('select * from jobs inner join payments on jobs.id = payments.job_id where payments.payment_status = \'unpaid\' and jobs.user_id = \''+session[:user_id].to_s+'\'')
     @jobs = Job.find_by_sql('select * from jobs inner join payments on jobs.id = payments.job_id where payments.payment_status = \'paid\' and jobs.user_id = \''+session[:user_id].to_s+'\' and jobs.job_start <= \''+Chronic.parse('today').to_s+'\' and jobs.job_valid >= \''+Chronic.parse('today').to_s+'\'')
 

@@ -1,0 +1,126 @@
+<html>
+    <title>carikerjaan.id</title>
+    <link rel="stylesheet" href="/themes/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/jobfront.css">
+
+    <body>
+        <div id="banner" class="row">
+            <nav class="navbar">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">carikerjaan.id</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right top-menu">
+                    <li><a href="../navbar/"><%= @current.user_name %></a></li>
+                    <li><a href="../navbar-static-top/">dashboard</a></li>
+                    <li class="active"><a href="/logout">logout</a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+        </div>
+        <div class="row">
+          <div class="container">
+            <div class="job-box col-md-10 col-md-offset-1">
+                <div class="row">
+                    <div class="container">
+                      <div class="col-md-9">
+                        <div class="col-md-3">
+                          <br>
+                          <label>Lokasi</label>
+                          <select class="form-control" id="jobloc">
+                            <option value="0">All</option>
+                            <% @states.each do |s|%>
+                                <option value="<%= s.id %>"><%= s.state_name %></option>
+                            <% end %>
+                          </select>
+                        </div>
+                        <div class="col-md-3">
+                          <br>
+                          <label>Kategori</label>
+                          <select class="form-control" id="jobcat">
+                            <option value="0">All</option>
+                            <% @categories.each do |s|%>
+                                <option value="<%= s.id %>"><%= s.category_name %></option>
+                            <% end %>
+                          </select>
+                        </div>
+                        <div class="col-md-5">
+                          <br>
+                          <label>Kata Kunci</label>
+                          <input type="text" id="jobquery" class="form-control">
+                        </div>
+                        <div class="col-md-1">
+                          <br>
+                          <label>&nbsp;</label>
+                          <button id="joblook" type="submit" class="btn btn-primary">Cari</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="container">
+                      <div id="job-content" class="col-md-9">
+                        <div class="media">
+                            <div class="media-left">
+                              <a>
+                                <img width="100" height="100" src="/uploads/user/avatar/3/bri.jpg" class="media-object">
+                              </a>
+                            </div>
+                            <div class="media-body">
+                              <h3 class="media-heading">Plantation Manager
+                                <br><small>Kalimantan Tengah - Palangkaraya</small>
+                              </h3>
+                              <p>sajdgsagdhasgdhgsdjhgashjdgs sajgdhsajgd sadghjsa gdhj</p>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="job-footer">
+
+          </div>
+        </div>
+    </body>
+
+    <!-- js -->
+    <script type="text/javascript" src="/themes/js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="/themes/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#joblook').click(function(){
+            var loc = $('#jobloc').val();
+            var cat = $('#jobcat').val();
+            var query = $('#jobquery').val();
+            $.ajax({
+                url : '/api/v1/jobs?loc='+loc+'&cat='+cat+'&query='+query,
+                method : 'GET',
+                dataType : 'json',
+                success : function(output){
+                    var html = "";
+                    for (var i=0 ; i< output.length; i++){
+                        html += "<div class=\"media\"><div class=\"media-left\"><a><img width=\"100\" height=\"100\" src=\"/uploads/user/avatar/3/bri.jpg\" class=\"media-object\"></a></div><div class=\"media-body\"><h3 class=\"media-heading\">"+output[i].job_name+"<br><small>"+output[0].state+" - "+output[0].city+"</small></h3>"+output[i].job_description.substring(0,200)+"</div></div>";
+                    }
+                    $('#job-content').html(html);
+                },
+                error : function(err){
+                    console.log('error');
+                    console.log(err.responseText);
+                }
+            });
+        });
+    </script>
+</html>

@@ -8,9 +8,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string  :avatar , :null => true
       t.text    :user_address , :null => true
       t.string  :user_phone , :null => true
-      t.integer :user_country
-      t.integer :user_state
-      t.integer :user_city
+      t.integer :country_id
+      t.integer :state_id
+      t.integer :city_id
       t.string  :user_role
       t.string  :flag
       t.timestamps null: false

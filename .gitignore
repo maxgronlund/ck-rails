@@ -14,3 +14,5 @@
 /.idea
 /public/bower_components/
 /public/uploads
+Vagrantfile
+/.vagrant

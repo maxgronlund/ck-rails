@@ -71,7 +71,7 @@ class PaymentsController < ApplicationController
 
     PaymentLog.create({
                           payment_id: pay.id,
-                          payment_state: 'decined',
+                          payment_state: 'declined',
                           issued_at: Time.now
                       })
 
