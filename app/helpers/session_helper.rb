@@ -35,5 +35,8 @@ module SessionHelper
     end
   end
 
+  def clear_api_cache
+    $redis.flushdb
+  end
 
 end

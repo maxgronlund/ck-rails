@@ -59,6 +59,8 @@ class PaymentsController < ApplicationController
       issued_at: Time.now
     })
 
+    clear_api_cache
+
     redirect_to '/admin/payments/'+payment_id
 
   end
@@ -75,6 +77,8 @@ class PaymentsController < ApplicationController
                           issued_at: Time.now
                       })
 
+    clear_api_cache
+    
     redirect_to '/admin/payments/'+payment_id
   end
 

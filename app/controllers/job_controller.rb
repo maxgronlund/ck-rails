@@ -64,7 +64,9 @@ class JobController < ApplicationController
 			issued_at: Time.now,
 			created_at: Time.now,
 			updated_at: Time.now
-		});
+		})
+
+		clear_api_cache
 
 		redirect_to('/admin/jobs')
 
@@ -95,6 +97,8 @@ class JobController < ApplicationController
 		@currentJob.job_start = Chronic.parse(params[:job][:start])
 		@currentJob.job_valid = Chronic.parse(params[:job][:valid])
 		@currentJob.save
+
+		clear_api_cache
 
 		redirect_to '/admin/jobs'
 	end
