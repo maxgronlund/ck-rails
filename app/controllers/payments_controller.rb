@@ -78,7 +78,7 @@ class PaymentsController < ApplicationController
                       })
 
     clear_api_cache
-    
+
     redirect_to '/admin/payments/'+payment_id
   end
 

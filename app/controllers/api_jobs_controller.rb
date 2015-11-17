@@ -61,6 +61,7 @@ class ApiJobsController < ApplicationController
       end
 
       $redis.set(key , job.to_json())
+      $redis.expire(key , 10.minutes.to_i)
     else
       job = $redis.get(key)
     end
