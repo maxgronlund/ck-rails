@@ -29,4 +29,11 @@ class PublicController < ApplicationController
     @states  = State.all
     @categories = Category.all
   end
+
+  def jobdetail
+    @current = User.find(session[:user_id])
+    @job = Job.where('job_hash_id = ? ' , params[:ids]).first
+
+  end
+
 end
