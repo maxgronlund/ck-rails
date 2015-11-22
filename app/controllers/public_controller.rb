@@ -14,8 +14,8 @@ class PublicController < ApplicationController
       user_email: params[:register][:email],
       password: params[:register][:password],
       user_role: params[:register][:role],
-      user_state: params[:register][:state],
-      user_city: params[:register][:city]
+      state_id: params[:register][:state],
+      city_id: params[:register][:city]
     })
 
     @currentUser.user_hash_id = hashid.encode(@currentUser.id)
