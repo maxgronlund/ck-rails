@@ -100,7 +100,7 @@
                 success : function(output){
                     var html = "";
                     for (var i=0 ; i< output.length; i++){
-                        html += "<div class=\"media\"><div class=\"media-left\"><a><img width=\"100\" height=\"100\" src=\"/uploads/user/avatar/3/bri.jpg\" class=\"media-object\"></a></div><div class=\"media-body\"><h3 class=\"media-heading\"><a href=\"/job/"+output[i].job_hash_id+"\">"+output[i].job_name+"</a><br><small>"+output[0].state+" - "+output[0].city+"</small></h3><div class=\"col-md-8\">"+output[i].job_description.substring(0,200)+"</div><div class=\"col-md-4\">"+output[i].salary+"</div></div></div>";
+                        html += "<div class=\"media\"><div class=\"media-left\"><a><img width=\"100\" height=\"100\" src=\""+output[i].user.avatar.avatar.url+"\" class=\"media-object\"></a></div><div class=\"media-body\"><h3 class=\"media-heading\"><a href=\"/job/"+output[i].job_hash_id+"\">"+output[i].job_name+"</a><br><small>"+output[0].state+" - "+output[0].city+"</small></h3><div class=\"col-md-8\">"+output[i].job_description.substring(0,200)+"</div><div class=\"col-md-4\">"+output[i].salary+"</div></div></div>";
                     }
                     $('#job-content').html(html);
                 },
