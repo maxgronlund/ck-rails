@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  root 'home#landing'
+
+  root 'public#job'
+  get '/login' => 'home#landing'
   post '/auth' => 'session#auth'
   get '/logout' => 'session#destroy'
   get '/register' => 'public#register'

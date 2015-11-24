@@ -20,18 +20,22 @@ class PublicController < ApplicationController
 
     @currentUser.user_hash_id = hashid.encode(@currentUser.id)
     @currentUser.save
-
-    redirect_to '/'
+    flash[:info] = "User "+@currentUser.user_name+" has been created"
+    redirect_to '/login'
   end
 
   def job
-    @current = User.find(session[:user_id])
+    if session[:user_id]
+      @current = User.find(session[:user_id])
+    end
     @states  = State.all
     @categories = Category.all
   end
 
   def jobdetail
-    @current = User.find(session[:user_id])
+    if session[:user_id]
+      @current = User.find(session[:user_id])
+    end
     @job = Job.where('job_hash_id = ? ' , params[:ids]).first
 
   end

@@ -2,7 +2,6 @@
     <title>carikerjaan.id</title>
     <link rel="stylesheet" href="/themes/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/jobfront.css">
-
     <body>
         <div id="banner" class="row">
             <nav class="navbar">
@@ -20,13 +19,19 @@
                   <ul class="nav navbar-nav">
                   </ul>
                   <ul class="nav navbar-nav navbar-right top-menu">
-                    <li><a href="../navbar/"><%= @current.user_name %></a></li>
-                    <% if @current.user_role == 'user' %>
-                      <li><a href="/basic">dashboard</a></li>
+                    <% if @current %>
+                        <li><a href="#"><%= @current.user_name %></a></li>
+                        <% if @current.user_role == 'user' %>
+                            <li><a href="/basic">dashboard</a></li>
+                        <% else %>
+                            <li><a href="/<%= @current.user_role %>">dashboard</a></li>
+                        <% end %>
+                        <li class="active"><a href="/logout">logout</a></li>
                     <% else %>
-                      <li><a href="/<%= @current.user_role %>">dashboard</a></li>
+                        <li class="active"><a href="/login">login as member</a></li>
+                        <li class=""><a href="/register">register</a></li>
                     <% end %>
-                    <li class="active"><a href="/logout">logout</a></li>
+
                   </ul>
                 </div>
               </div>
@@ -82,11 +87,11 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="job-footer">
-
+        <footer class="footer">
+          <div class="container">
+            <p class="text-center" style="color: white">&copy copyright carikerjaan 2015</p>
           </div>
-        </div>
+        </footer>
     </body>
 
     <!-- js -->
@@ -104,7 +109,7 @@
                 success : function(output){
                     var html = "";
                     for (var i=0 ; i< output.length; i++){
-                        html += "<div class=\"media\"><div class=\"media-left\"><a><img width=\"100\" height=\"100\" src=\""+output[i].user.avatar.avatar.url+"\" class=\"media-object\"></a></div><div class=\"media-body\"><h3 class=\"media-heading\"><a href=\"/job/"+output[i].job_hash_id+"\">"+output[i].job_name+"</a><br><small>"+output[0].state+" - "+output[0].city+"</small></h3><div class=\"col-md-8\">"+output[i].job_description.substring(0,200)+"</div><div class=\"col-md-4\">"+output[i].salary+"</div></div></div>";
+                        html += "<div class=\"media\"><div class=\"media-left\"><a><img width=\"100\" height=\"100\" src=\""+output[i].user.avatar.avatar.url+"\" class=\"media-object\"></a></div><div class=\"media-body\"><div class=\"col-md-10\"><h3 class=\"media-heading\"><a href=\"/job/"+output[i].job_hash_id+"\">"+output[i].job_name+"</a><br><small>"+output[0].state+" - "+output[0].city+"</small></h3><div class=\"col-md-10\">"+output[i].salary+"</div></div><div class=\"col-md-1\"><a class=\"btn btn-primary btn-sm\" href=\"#\">Subscribe</a></div></div></div>";
                     }
                     $('#job-content').html(html);
                 },

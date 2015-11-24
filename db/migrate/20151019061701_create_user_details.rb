@@ -8,6 +8,7 @@ class CreateUserDetails < ActiveRecord::Migration
       t.integer :userdetail_rating
       t.integer :education_id
       t.string :curriculumvitae
+      t.integer :category_id
       t.timestamps null: false
     end
   end

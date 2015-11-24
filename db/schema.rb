@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 20151027034440) do
     t.integer  "userdetail_rating"
     t.integer  "education_id"
     t.string   "curriculumvitae"
+    t.integer  "category_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end

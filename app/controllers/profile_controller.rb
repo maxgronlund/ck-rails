@@ -23,13 +23,13 @@ class ProfileController < ApplicationController
         userdetail_bio: params[:details][:bio],
         userdetail_phone: params[:details][:phone],
         userdetail_rating: 1,
-        userdetail_major: params[:details][:major],
+        category_id: params[:details][:major],
         curriculumvitae: params[:details][:curriculumvitae]
                         })
     else
       currentDetaills.userdetail_bio = params[:details][:bio]
       currentDetaills.userdetail_phone = params[:details][:phone]
-      currentDetaills.userdetail_major = params[:details][:major]
+      currentDetaills.category_id = params[:details][:major]
       currentDetaills.curriculumvitae = params[:details][:curriculumvitae]
       currentDetaills.save
     end
@@ -44,8 +44,8 @@ class ProfileController < ApplicationController
     currentUser.user_email = params[:user][:email]
     currentUser.password = params[:user][:password]
     currentUser.avatar = params[:user][:avatar]
-    currentUser.user_state = params[:user][:state]
-    currentUser.user_city = params[:user][:city]
+    currentUser.state_id = params[:user][:state]
+    currentUser.city_id = params[:user][:city]
     currentUser.save
 
     flash[:success] = "Profile updated."

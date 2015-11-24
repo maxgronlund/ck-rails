@@ -12,18 +12,18 @@ class SessionController < ApplicationController
 			elsif cuser.user_role == 'user'
 				redirect_to '/job'
 			else
-				redirect_to '/'
+				redirect_to '/login'
 			end
 		else
 			flash[:info] = 'User not found'
-			redirect_to '/'		
+			redirect_to '/login'
 		end	
 	end
 
 	def destroy
 		reset_session
 		flash[:info] = 'You have been logged out.'
-		redirect_to '/'
+		redirect_to '/login'
 	end
 
 end

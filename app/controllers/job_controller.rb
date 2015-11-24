@@ -18,7 +18,7 @@ class JobController < ApplicationController
 		@categories = Category.all.order(:category_name)
 		@salaries = Salary.all
 		@states = State.all
-		@users = User.all
+		@users = User.where('user_role = ?' , 'company')
 	end
 
 	def submit
@@ -84,7 +84,7 @@ class JobController < ApplicationController
 		@salaries = Salary.all
 		@states = State.all
 		@cities = City.where(:state_id => @currentJob.state_id)
-		@users = User.all
+		@users = User.where('user_role = ?' , 'company')
 	end
 
 	def update

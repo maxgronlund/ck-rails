@@ -20,9 +20,18 @@
         <ul class="nav navbar-nav">
         </ul>
         <ul class="nav navbar-nav navbar-right top-menu">
-          <li><a href="../navbar/"><%= @current.user_name %></a></li>
-          <li><a href="/<%= @current.user_role %>">dashboard</a></li>
-          <li class="active"><a href="/logout">logout</a></li>
+          <% if @current %>
+              <li><a href=""><%= @current.user_name %></a></li>
+              <% if @current.user_role == 'user' %>
+                  <li><a href="/basic">dashboard</a></li>
+              <% else %>
+                  <li><a href="/<%= @current.user_role %>">dashboard</a></li>
+              <% end %>
+              <li class="active"><a href="/logout">logout</a></li>
+          <% else %>
+              <li class="active"><a href="/login">login as member</a></li>
+              <li class=""><a href="/register">register</a></li>
+          <% end %>
         </ul>
       </div>
     </div>

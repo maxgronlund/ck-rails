@@ -49,7 +49,7 @@
                       <div class="form-group crava">
                         <label class="control-label col-md-2">Avatar</label>
                         <div class="col-md-8">
-                          <%= image_tag @current.avatar_url() %>
+                          <img src="<%= @current.avatar.url()%>" width="100" height="100">
                           <a class="btn btn-primary" onclick="chava()">Change</a>
                         </div>
                       </div>
@@ -73,7 +73,7 @@
                       <select id="state-select" class="form-control" name="user[state]">
                         <option>-- select state --</option>
                         <% @states.each do |st| %>
-                            <% if st.id == @current.user_state %>
+                            <% if st.id == @current.state_id %>
                                 <option value="<%= st.id %>" selected><%= st.state_name %></option>
                             <% else %>
                                 <option value="<%= st.id %>"><%= st.state_name %></option>
@@ -89,7 +89,7 @@
                         <select id="" class="form-control" name="user[city]">
                           <option>-- select state --</option>
                           <% @cities.each do |ct| %>
-                              <% if ct.id == @current.user_city %>
+                              <% if ct.id == @current.city_id %>
                                   <option value="<%= ct.id %>" selected><%= ct.city_name %></option>
                               <% else %>
                                   <option value="<%= ct.id %>"><%= ct.city_name %></option>
@@ -143,7 +143,7 @@
                     <select class="form-control" name="details[major]">
                         <% if @currentDetails %>
                         <% @categories.each do |cate| %>
-                            <% if @currentDetails.userdetail_major == cate.id %>
+                            <% if @currentDetails.category_id == cate.id %>
                               <option value="<%= cate.id %>" selected><%= cate.category_name %></option>
                             <% else %>
                                 <option value="<%= cate.id %>"><%= cate.category_name %></option>
@@ -158,7 +158,7 @@
                   </div>
                 </div>
                 <% if @currentDetails %>
-                <% if !@currentDetails.curriculumvitae %>
+                <% if !@currentDetails.curriculumvitae_url() %>
                     <div class="form-group">
                       <label class="control-label col-md-2">Curriculum Vitae</label>
                       <div class="col-md-8">
@@ -181,7 +181,7 @@
                                 <i class="fa fa-file"></i>
                               </div>
                               <div class="file-name">
-                                Curriculum Vitae
+                                <%= @currentDetails.curriculumvitae_url().split("/").last %>
                               </div>
                             </a>
                           </div>
@@ -266,8 +266,13 @@
         $('.datepicker').datepicker({});
         $('#uploader').hide();
         $('.time').each(function(){
-            var Tformat = moment($(this).text()).format('LL');
-            $(this).text(Tformat);
+            if($(this).text() != ""){
+                var Tformat = moment($(this).text()).format('LL');
+                $(this).text(Tformat);
+            } else {
+                $(this).text('now');
+            }
+
         });
         $('#state-select').on('change' , function(){
             var ids = $("#state-select").val();

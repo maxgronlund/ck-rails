@@ -3,11 +3,11 @@ module SessionHelper
     if session[:user_id]
       if session[:user_role] != 'admin'
         flash[:warning] = 'You have to be admin to access that page.'
-        redirect_to '/'
+        redirect_to '/login'
       end
     else
       flash[:warning] = 'Login required.'
-      redirect_to '/'
+      redirect_to '/login'
     end
   end
 
@@ -15,11 +15,11 @@ module SessionHelper
     if session[:user_id]
       if session[:user_role] != 'company'
         flash[:warning] = 'You have to be company user to access that page.'
-        redirect_to '/'
+        redirect_to '/login'
       end
     else
       flash[:warning] = 'Login required.'
-      redirect_to '/'
+      redirect_to '/login'
     end
   end
 
@@ -27,11 +27,11 @@ module SessionHelper
     if session[:user_id]
       if session[:user_role] != 'user'
         flash[:warning] = 'You have to be a basic user to access that page.'
-        redirect_to '/'
+        redirect_to '/login'
       end
     else
       flash[:warning] = 'Login required.'
-      redirect_to '/'
+      redirect_to '/login'
     end
   end
 
