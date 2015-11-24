@@ -15,7 +15,17 @@
 				<div class="ibox-title">New Job</div>
 				<div class="ibox-content">
 					<%= form_for(:job , url: '/admin/jobs/submit' , html: { class: 'form form-horizontal'}) do |f| %>
-						<div class="form-group">
+                      <div class="form-group">
+                        <label class="control-label col-md-2">Publish As</label>
+                        <div class="col-md-8">
+                            <select class="form-control" name="job[publisher]">
+                              <% @users.each do |usr| %>
+                                <option value="<%= usr.id %>"><%= usr.user_name %></option>
+                              <% end %>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
 							<label class="control-label col-md-2">Job Name</label>
 							<div class="col-md-8">
 								<%= f.text_field :name , class: 'form-control' , placeholder: 'Name' %>

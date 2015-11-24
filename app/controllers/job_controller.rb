@@ -18,6 +18,7 @@ class JobController < ApplicationController
 		@categories = Category.all.order(:category_name)
 		@salaries = Salary.all
 		@states = State.all
+		@users = User.all
 	end
 
 	def submit
@@ -31,7 +32,7 @@ class JobController < ApplicationController
 			job_valid: Chronic.parse(params[:job][:valid]),
 			state_id: params[:job][:state],
 			city_id: params[:job][:city],
-			user_id: session[:user_id],
+			user_id: params[:job][:publisher],
 			job_is_fake: false,
 			job_status: 'OK',
 			flag: 'active'
@@ -83,6 +84,7 @@ class JobController < ApplicationController
 		@salaries = Salary.all
 		@states = State.all
 		@cities = City.where(:state_id => @currentJob.state_id)
+		@users = User.all
 	end
 
 	def update
@@ -94,6 +96,7 @@ class JobController < ApplicationController
 		@currentJob.salary_id = params[:job][:salary]
 		@currentJob.state_id = params[:job][:state]
 		@currentJob.city_id = params[:job][:city]
+		@currentJob.user_id = params[:job][:publisher]
 		@currentJob.job_start = Chronic.parse(params[:job][:start])
 		@currentJob.job_valid = Chronic.parse(params[:job][:valid])
 		@currentJob.save

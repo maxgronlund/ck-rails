@@ -16,6 +16,20 @@
         <div class="ibox-content">
           <%= form_for(:job , url: '/admin/jobs/update/'+@currentJob.job_hash_id , html: { class: 'form form-horizontal'}) do |f| %>
               <div class="form-group">
+                <label class="control-label col-md-2">Publish As</label>
+                <div class="col-md-8">
+                  <select class="form-control" name="job[publisher]">
+                    <% @users.each do |usr| %>
+                        <% if @currentJob.user_id == usr.id %>
+                            <option selected value="<%= usr.id %>"><%= usr.user_name %></option>
+                        <% else %>
+                            <option value="<%= usr.id %>"><%= usr.user_name %></option>
+                        <% end %>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="control-label col-md-2">Job Name</label>
                 <div class="col-md-8">
                   <%= f.text_field :name , class: 'form-control' , placeholder: 'Name' , value: @currentJob.job_name %>
