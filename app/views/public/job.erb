@@ -205,10 +205,10 @@
                     html += "<div class=\"media-body\">";
                     html += "<div class=\"col-md-7\">";
                     html += "<h3 class=\"media-heading\"><a href=\"/job/"+output[i].job_hash_id+"\">"+output[i].job_name+"</a>";
-                    html += "<br><small>"+output[0].state+" - "+output[0].city+"</small></h3><div class=\"col-md-10\">"+output[i].salary+"</div>";
+                    html += "<br><small>"+output[i].state+" - "+output[i].city+"</small></h3><div class=\"col-md-10\">"+output[i].salary+"</div>";
                     html += "</div>";
                     html += "<div class=\"col-md-1\">";
-                    html += "<a onclick=\"subscribe('"+output[0].job_hash_id+"')\" class=\"button_p\">SUBSCRIBE</a>";
+                    html += "<a onclick=\"subscribe('"+output[i].job_hash_id+"')\" class=\"button_p\">SUBSCRIBE</a>";
                     html += "</div>";
                     html += "</div>";
                     html += "</li>";
