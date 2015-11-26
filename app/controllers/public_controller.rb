@@ -6,6 +6,10 @@ class PublicController < ApplicationController
 
   end
 
+  def landing
+
+  end
+
   def signup
     hashid = Hashids.new('carikerjaan indonesia',8)
 

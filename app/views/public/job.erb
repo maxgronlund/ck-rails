@@ -1,123 +1,242 @@
+<!DOCTYPE html>
+
 <html>
-    <title>carikerjaan.id</title>
-    <link rel="stylesheet" href="/themes/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/jobfront.css">
-    <body>
-        <div id="banner" class="row">
-            <nav class="navbar">
-              <div class="container">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#">carikerjaan.id</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                  <ul class="nav navbar-nav">
-                  </ul>
-                  <ul class="nav navbar-nav navbar-right top-menu">
-                    <% if @current %>
-                        <li><a href="#"><%= @current.user_name %></a></li>
-                        <% if @current.user_role == 'user' %>
-                            <li><a href="/basic">dashboard</a></li>
-                        <% else %>
-                            <li><a href="/<%= @current.user_role %>">dashboard</a></li>
-                        <% end %>
-                        <li class="active"><a href="/logout">logout</a></li>
-                    <% else %>
-                        <li class="active"><a href="/login">login as member</a></li>
-                        <li class=""><a href="/register">register</a></li>
-                    <% end %>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>NINA Theme – Free HTML theme</title>
 
-                  </ul>
-                </div>
-              </div>
-            </nav>
+  <!--<script src="http://cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>-->
+  <link rel="stylesheet" href="/themes/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/ftheme/reset.css" type="text/css">
+  <link rel="stylesheet" href="/ftheme/styl.css" type="text/css">
+  <style>
+      * { -webkit-box-sizing: content-box;
+          -moz-box-sizing: content-box;
+          box-sizing: content-box;
+      }
+
+      .banner-form {
+          margin-top: 5%;
+      }
+
+      .banner-form label{
+          color : white;
+      }
+
+      .button_main {
+          top: 13px !important;
+      }
+
+      .button_p {
+          background-color: #E66E0D;
+          color: white;
+          display: inline-block;
+          padding: 8px 16px;
+          margin-top: 35%;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.42857;
+          text-align: center;
+          white-space: nowrap;
+          vertical-align: middle;
+          cursor: pointer;
+          -moz-user-select: none;
+          border: 1px solid transparent;
+          border-radius: 4px;
+
+      }
+
+      #vacancy-box {
+          margin-top: 5%;
+      }
+
+      .media-box {
+          border-style: solid;
+          border-width: 2px;
+          border-color: #c5c5c5;
+          padding: 15px;
+          margin-top: 0px;
+      }
+  </style>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+<!-- *********  Header  ********** -->
+<div id="topbanner" class="">
+<div id="header">
+  <div id="header_in">
+
+    <h1><a href="index.html"><b>carikerjaan</b>.id</a></h1>
+
+    <div id="menu">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/job" class="active">Search</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- *********  Main part – headline ********** -->
+
+
+<div id="main_part_inner">
+  <div id="main_part_inner_in">
+
+    <div class="row">
+      <div class="col-md-2 banner-form">
+        <label>Category</label>
+        <select class="form-control" id="jobcat">
+          <option value="0">All</option>
+          <% @categories.each do |ct| %>
+            <option value="<%= ct.id %>"><%= ct.category_name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="col-md-2 banner-form">
+        <label>Location</label>
+        <select class="form-control" id="jobloc">
+          <option value="0">All</option>
+          <% @states.each do |st| %>
+              <option value="<%= st.id %>"><%= st.state_name %></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="col-md-4 banner-form">
+        <label>Keyword</label>
+        <input type="text" id="jobquery" class="form-control input-sm">
+      </div>
+      <div class="col-md-2 banner-form">
+        <div class="button_main">
+          <a id="joblook" class="button_dark">SEARCH</a>
         </div>
-        <div class="row">
-          <div class="container">
-            <div class="job-box col-md-10 col-md-offset-1">
-                <div class="row">
-                    <div class="container">
-                      <div class="col-md-9">
-                        <div class="col-md-3">
-                          <br>
-                          <label>Lokasi</label>
-                          <select class="form-control" id="jobloc">
-                            <option value="0">All</option>
-                            <% @states.each do |s|%>
-                                <option value="<%= s.id %>"><%= s.state_name %></option>
-                            <% end %>
-                          </select>
-                        </div>
-                        <div class="col-md-3">
-                          <br>
-                          <label>Kategori</label>
-                          <select class="form-control" id="jobcat">
-                            <option value="0">All</option>
-                            <% @categories.each do |s|%>
-                                <option value="<%= s.id %>"><%= s.category_name %></option>
-                            <% end %>
-                          </select>
-                        </div>
-                        <div class="col-md-5">
-                          <br>
-                          <label>Kata Kunci</label>
-                          <input type="text" id="jobquery" class="form-control">
-                        </div>
-                        <div class="col-md-1">
-                          <br>
-                          <label>&nbsp;</label>
-                          <button id="joblook" type="submit" class="btn btn-primary">Cari</button>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="container">
-                      <div id="job-content" class="col-md-10">
+      </div>
+    </div>
 
-                      </div>
-                  </div>
-                </div>
-            </div>
-          </div>
-        </div>
-        <footer class="footer">
-          <div class="container">
-            <p class="text-center" style="color: white">&copy copyright carikerjaan 2015</p>
-          </div>
-        </footer>
-    </body>
+  </div>
 
-    <!-- js -->
-    <script type="text/javascript" src="/themes/js/jquery-2.1.1.js"></script>
-    <script type="text/javascript" src="/themes/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $('#joblook').click(function(){
-            var loc = $('#jobloc').val();
-            var cat = $('#jobcat').val();
-            var query = $('#jobquery').val();
-            $.ajax({
-                url : '/api/v1/jobs?loc='+loc+'&cat='+cat+'&query='+query,
-                method : 'GET',
-                dataType : 'json',
-                success : function(output){
-                    var html = "";
-                    for (var i=0 ; i< output.length; i++){
-                        html += "<div class=\"media\"><div class=\"media-left\"><a><img width=\"100\" height=\"100\" src=\""+output[i].user.avatar.avatar.url+"\" class=\"media-object\"></a></div><div class=\"media-body\"><div class=\"col-md-10\"><h3 class=\"media-heading\"><a href=\"/job/"+output[i].job_hash_id+"\">"+output[i].job_name+"</a><br><small>"+output[0].state+" - "+output[0].city+"</small></h3><div class=\"col-md-10\">"+output[i].salary+"</div></div><div class=\"col-md-1\"><a class=\"btn btn-primary btn-sm\" href=\"#\">Subscribe</a></div></div></div>";
-                    }
-                    $('#job-content').html(html);
-                },
-                error : function(err){
-                    console.log('error');
-                    console.log(err.responseText);
+</div>
+</div>
+
+<!-- *********  Content  ********** -->
+
+<div id="content_inner" style="height: 600px;">
+
+  <div id="vacancy-box">
+
+    <div class="col-md-8">
+      <ul class="media-list">
+        <div id="job-content"></div>
+        <!--<li class="media media-box">-->
+          <!--<div class="media-left">-->
+            <!--<a href="#">-->
+            <!--</a>-->
+          <!--</div>-->
+          <!--<div class="media-left">-->
+            <!--<a><img width="100" height="100" src="/uploads/user/avatar/1/bri.jpg" class="media-object"></a>-->
+          <!--</div>-->
+          <!--<div class="media-body">-->
+            <!--<div class="col-md-7">-->
+              <!--<h3 class="media-heading"><a href="">Rails Developer</a>-->
+                <!--<br><small>Balikpapan - Kaltim</small></h3><div class="col-md-10">Rp 2.000.000 - 4.000.000 </div>-->
+            <!--</div>-->
+            <!--<div class="col-md-1">-->
+              <!--<a href="#" class="button_p">SUBSCRIBE</a>-->
+            <!--</div>-->
+
+          <!--</div>-->
+        <!--</li>-->
+      </ul>
+    </div>
+    <div class="col-md-3"></div>
+
+
+  </div>
+
+</div>
+
+
+
+<!-- *********  Footer  ********** -->
+
+<hr class="cleanit">
+
+<div id="footer">
+  <div id="footer_in">
+
+    <p><a href="http://creativecommons.org/licenses/by/3.0/">CC Attribution 3.0 Unported</a> &mdash; allowed for commercial and non-commercial use</p>
+    <span>Author: <a href="http://ries.cz">Vilém Ries</a></span>
+
+  </div>
+</div>
+
+<!-- js -->
+<script type="text/javascript" src="/themes/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/themes/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('#joblook').click(function(){
+        var loc = $('#jobloc').val();
+        var cat = $('#jobcat').val();
+        var query = $('#jobquery').val();
+        console.log('/api/v1/jobs?loc='+loc+'&cat='+cat+'&query='+query);
+        $.ajax({
+            url : '/api/v1/jobs?loc='+loc+'&cat='+cat+'&query='+query,
+            method : 'GET',
+            dataType : 'json',
+            success : function(output){
+                console.log(output);
+                var html = "";
+                for (var i=0 ; i< output.length; i++){
+                    html += "<li class=\"media media-box\">";
+                    html += "<div class=\"media-left\">";
+                    html += "<a href=\"#\"></a>";
+                    html += "</div>";
+                    html += "<div class=\"media-left\">";
+                    html += "<a><img width=\"100\" height=\"100\" src=\""+output[i].user.avatar.avatar.url+"\" class=\"media-object\"></a>";
+                    html += "</div>";
+                    html += "<div class=\"media-body\">";
+                    html += "<div class=\"col-md-7\">";
+                    html += "<h3 class=\"media-heading\"><a href=\"/job/"+output[i].job_hash_id+"\">"+output[i].job_name+"</a>";
+                    html += "<br><small>"+output[0].state+" - "+output[0].city+"</small></h3><div class=\"col-md-10\">"+output[i].salary+"</div>";
+                    html += "</div>";
+                    html += "<div class=\"col-md-1\">";
+                    html += "<a onclick=\"subscribe('"+output[0].job_hash_id+"')\" class=\"button_p\">SUBSCRIBE</a>";
+                    html += "</div>";
+                    html += "</div>";
+                    html += "</li>";
                 }
-            });
+                $('#job-content').html(html);
+            },
+            error : function(err){
+                console.log('error');
+                console.log(err.responseText);
+            }
         });
-    </script>
+    });
+
+    function subscribe(jobid){
+        $.ajax({
+            url : '/api/v1/subscribe?job='+jobid,
+            method : 'GET',
+            dataType : 'json',
+            success : function(output){
+                alert(output.status);
+            },
+            error : function(err){
+                console.log('error');
+                console.log(err.responseText);
+            }
+        });
+    }
+</script>
+
+</body>
 </html>

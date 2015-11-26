@@ -3,7 +3,7 @@ class CreateSalaries < ActiveRecord::Migration
     create_table :salaries do |t|
       t.integer :salary_code
       t.string  :salary_string
-      t.belongs_to  :job, index: true
+      t.belongs_to  :jobblue, index: true
       t.timestamps null: false
     end
   end

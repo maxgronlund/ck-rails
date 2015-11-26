@@ -1,0 +1,138 @@
+<html>
+    <title>carikerjaan.id</title>
+    <link rel="stylesheet" href="/themes/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/jobfront.css">
+    <body>
+        <div id="banner" class="row">
+            <nav class="navbar">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">carikerjaan.id</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right top-menu">
+                    <% if @current %>
+                        <li><a href="#"><%= @current.user_name %></a></li>
+                        <% if @current.user_role == 'user' %>
+                            <li><a href="/basic">dashboard</a></li>
+                        <% else %>
+                            <li><a href="/<%= @current.user_role %>">dashboard</a></li>
+                        <% end %>
+                        <li class="active"><a href="/logout">logout</a></li>
+                    <% else %>
+                        <li class="active"><a href="/login">login as member</a></li>
+                        <li class=""><a href="/register">register</a></li>
+                    <% end %>
+
+                  </ul>
+                </div>
+              </div>
+            </nav>
+        </div>
+        <div class="row">
+          <div class="container">
+            <div class="job-box col-md-10 col-md-offset-1">
+                <div class="row">
+                    <div class="container">
+                      <div class="col-md-9">
+                        <div class="col-md-3">
+                          <br>
+                          <label>Lokasi</label>
+                          <select class="form-control" id="jobloc">
+                            <option value="0">All</option>
+                            <% @states.each do |s|%>
+                                <option value="<%= s.id %>"><%= s.state_name %></option>
+                            <% end %>
+                          </select>
+                        </div>
+                        <div class="col-md-3">
+                          <br>
+                          <label>Kategori</label>
+                          <select class="form-control" id="jobcat">
+                            <option value="0">All</option>
+                            <% @categories.each do |s|%>
+                                <option value="<%= s.id %>"><%= s.category_name %></option>
+                            <% end %>
+                          </select>
+                        </div>
+                        <div class="col-md-5">
+                          <br>
+                          <label>Kata Kunci</label>
+                          <input type="text" id="jobquery" class="form-control">
+                        </div>
+                        <div class="col-md-1">
+                          <br>
+                          <label>&nbsp;</label>
+                          <button id="joblook" type="submit" class="btn btn-primary">Cari</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="container">
+                      <div id="job-content" class="col-md-10">
+
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <div class="container">
+            <p class="text-center" style="color: white">&copy copyright carikerjaan 2015</p>
+          </div>
+        </footer>
+    </body>
+
+    <!-- js -->
+    <script type="text/javascript" src="/themes/js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="/themes/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#joblook').click(function(){
+            var loc = $('#jobloc').val();
+            var cat = $('#jobcat').val();
+            var query = $('#jobquery').val();
+            $.ajax({
+                url : '/api/v1/jobs?loc='+loc+'&cat='+cat+'&query='+query,
+                method : 'GET',
+                dataType : 'json',
+                success : function(output){
+                    var html = "";
+                    for (var i=0 ; i< output.length; i++){
+                        html += "<div class=\"media\"><div class=\"media-left\"><a><img width=\"100\" height=\"100\" src=\""+output[i].user.avatar.avatar.url+"\" class=\"media-object\"></a></div><div class=\"media-body\"><div class=\"col-md-10\"><h3 class=\"media-heading\"><a href=\"/job/"+output[i].job_hash_id+"\">"+output[i].job_name+"</a><br><small>"+output[0].state+" - "+output[0].city+"</small></h3><div class=\"col-md-10\">"+output[i].salary+"</div></div><div class=\"col-md-1\"><a class=\"btn btn-primary btn-sm\" onclick=\"subscribe('"+output[0].job_hash_id+"')\">Subscribe</a></div></div></div>";
+                    }
+                    $('#job-content').html(html);
+                },
+                error : function(err){
+                    console.log('error');
+                    console.log(err.responseText);
+                }
+            });
+        });
+
+        function subscribe(jobid){
+            $.ajax({
+                url : '/api/v1/subscribe?job='+jobid,
+                method : 'GET',
+                dataType : 'json',
+                success : function(output){
+                    alert(output.status);
+                },
+                error : function(err){
+                    console.log('error');
+                    console.log(err.responseText);
+                }
+            });
+        }
+    </script>
+</html>

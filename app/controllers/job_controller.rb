@@ -24,15 +24,15 @@ class JobController < ApplicationController
 	def submit
 		hashid = Hashids.new('carikerjaan indonesia',8)
 		currentJob = Job.create({
-			job_name: params[:job][:name],
-			job_description: params[:job][:description],
-			salary_id: params[:job][:salary],
-			category_id: params[:job][:category],
-			job_start: Chronic.parse(params[:job][:start]),
-			job_valid: Chronic.parse(params[:job][:valid]),
-			state_id: params[:job][:state],
-			city_id: params[:job][:city],
-			user_id: params[:job][:publisher],
+			job_name: params[:jobblue][:name],
+			job_description: params[:jobblue][:description],
+			salary_id: params[:jobblue][:salary],
+			category_id: params[:jobblue][:category],
+			job_start: Chronic.parse(params[:jobblue][:start]),
+			job_valid: Chronic.parse(params[:jobblue][:valid]),
+			state_id: params[:jobblue][:state],
+			city_id: params[:jobblue][:city],
+			user_id: params[:jobblue][:publisher],
 			job_is_fake: false,
 			job_status: 'OK',
 			flag: 'active'
@@ -90,15 +90,15 @@ class JobController < ApplicationController
 	def update
 		ids = params[:ids]
 		@currentJob = Job.where(:job_hash_id => ids).first
-		@currentJob.job_name = params[:job][:name]
-		@currentJob.job_description = params[:job][:description]
-		@currentJob.category_id = params[:job][:category]
-		@currentJob.salary_id = params[:job][:salary]
-		@currentJob.state_id = params[:job][:state]
-		@currentJob.city_id = params[:job][:city]
-		@currentJob.user_id = params[:job][:publisher]
-		@currentJob.job_start = Chronic.parse(params[:job][:start])
-		@currentJob.job_valid = Chronic.parse(params[:job][:valid])
+		@currentJob.job_name = params[:jobblue][:name]
+		@currentJob.job_description = params[:jobblue][:description]
+		@currentJob.category_id = params[:jobblue][:category]
+		@currentJob.salary_id = params[:jobblue][:salary]
+		@currentJob.state_id = params[:jobblue][:state]
+		@currentJob.city_id = params[:jobblue][:city]
+		@currentJob.user_id = params[:jobblue][:publisher]
+		@currentJob.job_start = Chronic.parse(params[:jobblue][:start])
+		@currentJob.job_valid = Chronic.parse(params[:jobblue][:valid])
 		@currentJob.save
 
 		clear_api_cache

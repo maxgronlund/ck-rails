@@ -11,7 +11,7 @@ class CreatePayments < ActiveRecord::Migration
       t.datetime    :payment_approved_at
       t.datetime    :payment_paid_at
       t.string      :payment_method
-      t.belongs_to  :job, index: true
+      t.belongs_to  :jobblue, index: true
       t.timestamps null: false
     end
   end

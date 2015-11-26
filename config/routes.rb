@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 
-  root 'public#job'
+  root 'public#landing'
   get '/login' => 'home#landing'
   post '/auth' => 'session#auth'
   get '/logout' => 'session#destroy'
@@ -76,6 +76,7 @@ Rails.application.routes.draw do
   get '/jwt/decode' => 'jwt#decode'
 
   get '/api/v1/jobs' => 'api_jobs#list'
+  get '/api/v1/subscribe' => 'subscribe#subscribe'
 
 
 end

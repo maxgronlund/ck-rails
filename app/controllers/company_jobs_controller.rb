@@ -22,14 +22,14 @@ class CompanyJobsController < ApplicationController
   def submit
     hashid = Hashids.new('carikerjaan indonesia',8)
     currentJob = Job.create({
-                                job_name: params[:job][:name],
-                                job_description: params[:job][:description],
-                                salary_id: params[:job][:salary],
-                                category_id: params[:job][:category],
-                                job_start: Chronic.parse(params[:job][:start]),
-                                job_valid: Chronic.parse(params[:job][:valid]),
-                                state_id: params[:job][:state],
-                                city_id: params[:job][:city],
+                                job_name: params[:jobblue][:name],
+                                job_description: params[:jobblue][:description],
+                                salary_id: params[:jobblue][:salary],
+                                category_id: params[:jobblue][:category],
+                                job_start: Chronic.parse(params[:jobblue][:start]),
+                                job_valid: Chronic.parse(params[:jobblue][:valid]),
+                                state_id: params[:jobblue][:state],
+                                city_id: params[:jobblue][:city],
                                 user_id: session[:user_id],
                                 job_is_fake: false,
                                 job_status: 'OK',
@@ -91,14 +91,14 @@ class CompanyJobsController < ApplicationController
   def update
     ids = params[:ids]
     @currentJob = Job.where(:job_hash_id => ids).first
-    @currentJob.job_name = params[:job][:name]
-    @currentJob.job_description = params[:job][:description]
-    @currentJob.job_category = params[:job][:category]
-    @currentJob.job_salary = params[:job][:salary]
-    @currentJob.job_state = params[:job][:state]
-    @currentJob.job_city = params[:job][:city]
-    @currentJob.job_start = Chronic.parse(params[:job][:start])
-    @currentJob.job_valid = Chronic.parse(params[:job][:valid])
+    @currentJob.job_name = params[:jobblue][:name]
+    @currentJob.job_description = params[:jobblue][:description]
+    @currentJob.job_category = params[:jobblue][:category]
+    @currentJob.job_salary = params[:jobblue][:salary]
+    @currentJob.job_state = params[:jobblue][:state]
+    @currentJob.job_city = params[:jobblue][:city]
+    @currentJob.job_start = Chronic.parse(params[:jobblue][:start])
+    @currentJob.job_valid = Chronic.parse(params[:jobblue][:valid])
     @currentJob.save
     flash[:success] = "Jobs successfully updated."
     redirect_to '/company/jobs'
