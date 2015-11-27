@@ -36,12 +36,12 @@ ActiveRecord::Schema.define(version: 20151027034440) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "category_name"
-    t.integer  "job_id"
+    t.integer  "jobblue_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
-  add_index "categories", ["job_id"], name: "index_categories_on_job_id", using: :btree
+  add_index "categories", ["jobblue_id"], name: "index_categories_on_jobblue_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "city_name"
@@ -105,11 +105,12 @@ ActiveRecord::Schema.define(version: 20151027034440) do
     t.datetime "payment_approved_at"
     t.datetime "payment_paid_at"
     t.string   "payment_method"
+    t.integer  "jobblue_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
 
-  add_index "payments", ["job_id"], name: "index_payments_on_job_id", using: :btree
+  add_index "payments", ["jobblue_id"], name: "index_payments_on_jobblue_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "role_code"
@@ -121,12 +122,12 @@ ActiveRecord::Schema.define(version: 20151027034440) do
   create_table "salaries", force: :cascade do |t|
     t.integer  "salary_code"
     t.string   "salary_string"
-    t.integer  "job_id"
+    t.integer  "jobblue_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
-  add_index "salaries", ["job_id"], name: "index_salaries_on_job_id", using: :btree
+  add_index "salaries", ["jobblue_id"], name: "index_salaries_on_jobblue_id", using: :btree
 
   create_table "skills", force: :cascade do |t|
     t.string   "skill_name"

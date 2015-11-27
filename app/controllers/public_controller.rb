@@ -44,4 +44,12 @@ class PublicController < ApplicationController
 
   end
 
+  def jobthm
+    if session[:user_id]
+      @current = User.find(session[:user_id])
+    end
+    @states  = State.all
+    @categories = Category.all
+  end
+
 end
