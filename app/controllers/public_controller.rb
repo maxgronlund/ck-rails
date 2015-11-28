@@ -13,19 +13,24 @@ class PublicController < ApplicationController
   def signup
     hashid = Hashids.new('carikerjaan indonesia',8)
 
-    @currentUser = User.create({
-      user_name: params[:register][:name],
-      user_email: params[:register][:email],
-      password: params[:register][:password],
-      user_role: params[:register][:role],
-      state_id: params[:register][:state],
-      city_id: params[:register][:city]
-    })
+    if verify_recaptcha(model: @currentUser , timeout: 30 )
+      @currentUser = User.create({
+                                     user_name: params[:register][:name],
+                                     user_email: params[:register][:email],
+                                     password: params[:register][:password],
+                                     user_role: params[:register][:role],
+                                     state_id: params[:register][:state],
+                                     city_id: params[:register][:city]
+                                 })
 
-    @currentUser.user_hash_id = hashid.encode(@currentUser.id)
-    @currentUser.save
-    flash[:info] = "User "+@currentUser.user_name+" has been created"
-    redirect_to '/login'
+      @currentUser.user_hash_id = hashid.encode(@currentUser.id)
+      @currentUser.save
+      flash[:info] = "User "+@currentUser.user_name+" has been created"
+      redirect_to '/login'
+    else
+      flash[:danger] = "Error reCAPTCHA"
+      redirect_to '/register'
+    end
   end
 
   def job
