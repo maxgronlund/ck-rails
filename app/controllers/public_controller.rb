@@ -32,8 +32,30 @@ class PublicController < ApplicationController
     if session[:user_id]
       @current = User.find(session[:user_id])
     end
-    @states  = State.all
-    @categories = Category.all
+
+    if Rails.cache.fetch('states').nil?
+      Rails.cache.fetch('states' , :expires_in => 90.minutes) do
+        @states  = State.all
+      end
+    else
+      @states = Rails.cache.fetch('states')
+    end
+
+    if Rails.cache.fetch('categories').nil?
+      Rails.cache.fetch('categories' , :expires_in => 90.minutes) do
+        @categories = Category.all
+      end
+    else
+      @categories = Rails.cache.fetch('categories')
+    end
+
+    if Rails.cache.fetch('companies').nil?
+      Rails.cache.fetch('companies' , :expires_in => 90.minutes) do
+        @companies = User.where(:user_role => 'company').take(6)
+      end
+    else
+      @companies = Rails.cache.fetch('companies')
+    end
 
     today = Chronic.parse('today')
     category = params[:cat] || "0"
