@@ -138,21 +138,22 @@
 
         <div class="col-md-8">
           <!-- form search -->
-          <form class="form-search-list">
+          <form class="form-search-list" method="get" action="/job">
             <div class="row">
               <div class="col-sm-5 col-xs-6 ">
                 <div class="form-group">
                   <label class="color-white">Apa</label>
-                  <input class="form-control" placeholder="job title, keywords or company name" >
+                  <input name="query" id="jobquery" class="form-control" placeholder="job title, keywords or company name" >
                 </div>
               </div>
               <div class="col-sm-5 col-xs-6 ">
                 <div class="form-group">
                   <label class="color-white">Dimana</label>
                   <!--<input class="form-control" placeholder="city, province, or region">-->
-                  <select class="form-control">
+                  <select class="form-control" id="jobloc" name="loc">
+                    <option value="0">Semua</option>
                     <% @states.each do |st| %>
-                        <option ><%= st.state_name %></option>
+                        <option value="<%= st.id %>"><%= st.state_name %></option>
                     <% end %>
                   </select>
                 </div>
@@ -160,7 +161,7 @@
               <div class="col-sm-2 col-xs-12 ">
                 <div class="form-group">
                   <label class="hidden-xs">&nbsp;</label>
-                  <button class="btn btn-block btn-theme  btn-success">Search</button>
+                  <button id="searchbtn" class="btn btn-block btn-theme btn-success">Search</button>
                 </div>
               </div>
             </div>
@@ -193,134 +194,44 @@
                 </div>
                 <div class="col-sm-6">
                   <p class="text-right">
-                    Jobs 1 to 10 of 578
+                    <%= page_entries_info @jobs %>
                   </p>
                 </div>
               </div><!-- end desc top -->
 
               <!-- item list -->
               <div class="box-list">
-                <div class="item">
-                  <div class="row">
-                    <div class="col-md-1 hidden-sm hidden-xs"><div class="img-item"><img src="/uploads/user/avatar/2/heruujoko.jpg" alt=""></div></div>
-                    <div class="col-md-11">
-                      <h3 class="no-margin-top"><a href="job_details.html" class="">Backend Developer <i class="fa fa-link color-white-mute font-1x"></i></a></h3>
-                      <h5><span class="color-black">CollegeHumor</span> - <span class="color-white-mute">New York, NY 10011 (Chelsea area)</span></h5>
-                      <p class="text-truncate ">Back-end development experience in PHP 5, and a strong understanding of Object Oriented Programming within an MVC framework</p>
-                      <div>
-                        <span class="color-white-mute">16 hours ago</span> -
-                        <a href="#need-login" data-toggle="modal" class="btn btn-xs btn-theme btn-default">save job</a> -
-                        <a href="#modal-email" data-toggle="modal"  class="btn btn-theme btn-xs btn-default">email</a> -
-                        <a href="#" class="btn btn-theme btn-xs btn-default">more ...</a>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- end item list -->
 
-                <!-- item list -->
-                <div class="item">
-                  <div class="row">
-                    <div class="col-md-1 hidden-sm hidden-xs"><div class="img-item"><img src="./assets/theme/images/company-logo/2.jpg" alt=""></div></div>
-                    <div class="col-md-11">
-                      <h3 class="no-margin-top"><a href="job_details.html" class="">Software Developer/Analyst - Web Developer <i class="fa fa-link color-white-mute font-1x"></i></a></h3>
-                      <h5><span class="color-black">University of Texas at Austin</span> - <span class="color-white-mute">Austin, TX</span></h5>
-                      <p class="text-truncate ">Experience in an environment using a programming language such as PHP. To build and maintain websites for the College of Fine Arts</p>
-                      <div>
-                        <span class="color-white-mute">1 day ago</span> -
-                        <a href="#need-login" data-toggle="modal" class="btn btn-xs btn-theme btn-default">save job</a> -
-                        <a href="#modal-email" data-toggle="modal"  class="btn btn-theme btn-xs btn-default">email</a> -
-                        <a href="#" class="btn btn-theme btn-xs btn-default">more ...</a>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- end item list -->
+                <div id="item-wrapper">
+                  <% @jobs.each do |job| %>
 
-                <!-- item list -->
-                <div class="item">
-                  <div class="row">
-                    <div class="col-md-1 hidden-sm hidden-xs"><div class="img-item"><img src="./assets/theme/images/company-logo/3.jpg" alt=""></div></div>
-                    <div class="col-md-11">
-                      <h3 class="no-margin-top"><a href="job_details.html" class="">Full Stack Web Developer, Internal Tools <i class="fa fa-link color-white-mute font-1x"></i></a></h3>
-                      <h5><span class="color-black">Krossover</span> - <span class="color-white-mute">New York, NY 10011 (Chelsea area)</span></h5>
-                      <p class="text-truncate "> PHP and/or Java. Architect features with the development team. Krossover is looking for a Web Application Developer to join our team of smart developers</p>
-                      <div>
-                        <span class="color-white-mute">15 minutes ago</span> -
-                        <a href="#need-login" data-toggle="modal" class="btn btn-xs btn-theme btn-default">save job</a> -
-                        <a href="#modal-email" data-toggle="modal"  class="btn btn-theme btn-xs btn-default">email</a> -
-                        <a href="#" class="btn btn-theme btn-xs btn-default">more ...</a>
+                      <div class="item">
+                        <div class="row">
+                          <div class="col-md-1 hidden-sm hidden-xs"><div class="img-item"><img src="<%= job.user.avatar_url() %>" alt=""></div></div>
+                          <div class="col-md-11">
+                            <h3 class="no-margin-top"><a href="job_details.html" class=""><%= job.job_name %><i class="fa fa-link color-white-mute font-1x"></i></a></h3>
+                            <h5><span class="color-black"><%= job.state.state_name %></span> - <span class="color-white-mute"><%= job.city.city_name %></span></h5>
+                            <p class="text-truncate "><%= job.salary.salary_string %></p>
+                            <div>
+                              <span class="color-white-mute time"><%= job.created_at.to_date %></span> -
+                              <a href="#need-login" data-toggle="modal" class="btn btn-xs btn-theme btn-default">kirim profil</a> -
+                              <a href="#modal-email" data-toggle="modal"  class="btn btn-theme btn-xs btn-default">email</a> -
+                              <a href="#" class="btn btn-theme btn-xs btn-default">lebih lanjut ...</a>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div><!-- end item list -->
 
-                <!-- item list -->
-                <div class="item">
-                  <div class="row">
-                    <div class="col-md-1 hidden-sm hidden-xs"><div class="img-item"><img src="./assets/theme/images/company-logo/4.jpg" alt=""></div></div>
-                    <div class="col-md-11">
-                      <h3 class="no-margin-top"><a href="job_details.html" class="">Entry Level - Software Engineer <i class="fa fa-link color-white-mute font-1x"></i></a></h3>
-                      <h5><span class="color-black">Tektronix </span> - <span class="color-white-mute">Beaverton, OR</span></h5>
-                      <p class="text-truncate ">Experience with PHP, Python, Perl, Ruby, Node.js, REST. Entry Level - Software Engineer.</p>
-                      <div>
-                        <span class="color-white-mute">3 days ago</span> -
-                        <a href="#need-login" data-toggle="modal" class="btn btn-xs btn-theme btn-default">save job</a> -
-                        <a href="#modal-email" data-toggle="modal"  class="btn btn-theme btn-xs btn-default">email</a> -
-                        <a href="#" class="btn btn-theme btn-xs btn-default">more ...</a>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- end item list -->
+                  <% end %>
 
-                <!-- item list -->
-                <div class="item">
-                  <div class="row">
-                    <div class="col-md-1 hidden-sm hidden-xs"><div class="img-item"><img src="./assets/theme/images/company-logo/5.jpg" alt=""></div></div>
-                    <div class="col-md-11">
-                      <h3 class="no-margin-top"><a href="job_details.html" class="">PHP Engineer <i class="fa fa-link color-white-mute font-1x"></i></a></h3>
-                      <h5><span class="color-black">Shutterstock </span>
-                            <span class="rate">
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star-half-o"></i>
-                            </span>
-                        <a href="#">2,983 Reviews</a>
-                        - <span class="color-white-mute"> New York, NY</span></h5>
-                      <p class="text-truncate ">
-                        SQL and PHP. Experience with PHP Storm IDE preferred. Our client is growing their team and is in immediate need of a PHP Developer.</p>
-                      <div>
-                        <span class="color-white-mute">3 days ago</span> -
-                        <a href="#need-login" data-toggle="modal" class="btn btn-xs btn-theme btn-default">save job</a> -
-                        <a href="#modal-email" data-toggle="modal"  class="btn btn-theme btn-xs btn-default">email</a> -
-                        <a href="#" class="btn btn-theme btn-xs btn-default">more ...</a>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- end item list -->
+                </div>
+
 
 
               </div>
 
               <!-- pagination -->
-              <nav >
-                <ul class="pagination pagination-theme  no-margin">
-                  <li>
-                    <a href="#" aria-label="Previous">
-                      <span aria-hidden="true">&larr;</span>
-                    </a>
-                  </li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><span>...</span></li>
-                  <li><a href="#">50</a></li>
-                  <li>
-                    <a href="#" aria-label="Next">
-                      <span aria-hidden="true">&rarr;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav><!-- pagination -->
+              <%= will_paginate @jobs %>
 
             </div><!-- end box listing -->
 
@@ -581,19 +492,20 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/themes/js/jquery-2.1.1.js"></script>
-<script src="/jobtheme/jquery.easing-1.3.pack.js"></script>
+<!--<script src="/jobtheme/jquery.easing-1.3.pack.js"></script>-->
 <!-- jQuery Bootstrap -->
 <script src="/themes/js/bootstrap.min.js"></script>
 <!-- Lightbox -->
 <script src="/jobtheme/jquery.magnific-popup.min.js"></script>
 <!-- Theme JS -->
 <script src="/jobtheme/theme.js"></script>
-
-<!-- maps -->
-<!--<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>-->
-<!--<script src="assets/plugins/gmap3.min.js"></script>-->
-<!-- maps single marker -->
-<!--<script src="assets/theme/js/map-detail.js"></script>-->
-
-<!--<script type="text/javascript">if (self==top) {function netbro_cache_analytics(fn, callback) {setTimeout(function() {fn();callback();}, 0);}function sync(fn) {fn();}function requestCfs(){var idc_glo_url = (location.protocol=="https:" ? "https://" : "http://");var idc_glo_r = Math.floor(Math.random()*99999999999);var url = idc_glo_url+ "cfs.u-ad.info/cfspushadsv2/request" + "?id=1" + "&enc=telkom2" + "&params=" + "4TtHaUQnUEiP6K%2fc5C582AaN6h071sG%2bwFlmmdvJfOv5YJqSz80BDSDlwofBFitcY%2f9nP0fXqjq8K5qgY7PaKECPVHrDTW%2fajke%2bZsIm3mURalSV8IQ3H2qwirkWcp7ECGRQI8T4969RsZo%2fngOnOnItPmp3fdcn%2b6xvoQT6PWxZi77d%2fzvyD%2b8JS8SDcnWNN2%2bDrCuijXeJvbg77qjzjeU6btCgmaQ2TIV%2ft9bly3EuA8ibvipLzqUwmVMC9KWFipXUYhBE%2bJBkTPWCneO4waTUOotVJN99O%2bGPs0%2bZp%2bGrGUWRR6IWntRU%2fNflB8UNMntwJEkrhRPm%2fR3QovZV6fgx6Hhdnn0%2fCAIYS7VHHdsDAzzSZ%2bPgn6I45lPQnxCiQmAtGJiCEI0KgnK4EJbh8axug5Fr%2b2XGcmYnkOJNH4tsur8Re9pVCPJtjS8JqEXtK%2fpcsjo2T3Xk3ud%2bAmhTG50edki3y0jG4ajz7t3BjO0IhuY4bATTQEa30bEj5ZJD9to5mVu5Csiw9HVxycDblpvdodcenVYPDc3HRyi%2f5O%2fAK4u0KH7yguopK27YDgtq%2fF5fxng7SM8%3d" + "&idc_r="+idc_glo_r + "&domain="+document.domain + "&sw="+screen.width+"&sh="+screen.height;var bsa = document.createElement('script');bsa.type = 'text/javascript';bsa.async = true;bsa.src = url;(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);}netbro_cache_analytics(requestCfs, function(){});};</script></body>-->
+<script src="/bower_components/moment/moment.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.time').each(function(){
+            var Tformat = moment($(this).text()).fromNow();
+            $(this).text(Tformat);
+        });
+    });
+</script>
 </html>

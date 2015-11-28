@@ -36,6 +36,7 @@ gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
 gem 'carrierwave'
+gem 'will_paginate', '~> 3.0.6'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

@@ -5,4 +5,7 @@ class Job < ActiveRecord::Base
   belongs_to :category
   belongs_to :state
   belongs_to :salary
+
+  self.per_page = 6
+
 end
