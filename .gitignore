@@ -16,3 +16,4 @@
 /public/uploads
 Vagrantfile
 /.vagrant
+*.lock
