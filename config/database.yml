@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: ck-rails_production
-  username: ck-rails
-  password: <%= ENV['CK-RAILS_DATABASE_PASSWORD'] %>
+  database: ckrails
+  username: vagrant
+  password: vagrant
