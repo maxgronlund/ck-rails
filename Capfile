@@ -3,11 +3,8 @@ require 'capistrano/setup'
 
 # Includes default deployment tasks
 require 'capistrano/deploy'
-
 require 'capistrano/bundler'
 require 'capistrano/rails'
-
-# If you are using rbenv add these lines:
 require 'capistrano/rbenv'
 set :rbenv_type, :user
 set :rbenv_ruby, '2.2.3p173'
