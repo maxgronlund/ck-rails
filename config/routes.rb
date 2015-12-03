@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
 
-  root 'public#landing'
+  root 'public#job'
 
-  get '/thm' => 'public#jobthm'
+  #get '/thm' => 'public#jobthm'
 
   get '/login' => 'home#landing'
   post '/auth' => 'session#auth'
