@@ -125,11 +125,28 @@ class PublicController < ApplicationController
   end
 
   def jobdetail
+    
     if session[:user_id]
       @current = User.find(session[:user_id])
     end
+    
     @job = Job.where('job_hash_id = ? ' , params[:ids]).first
 
+    if Rails.cache.fetch('states').nil?
+      Rails.cache.fetch('states' , :expires_in => 90.minutes) do
+        @states  = State.all
+      end
+    else
+      @states = Rails.cache.fetch('states')
+    end
+    
+    if Rails.cache.fetch('companies').nil?
+      Rails.cache.fetch('companies' , :expires_in => 90.minutes) do
+        @companies = User.where(:user_role => 'company').take(6)
+      end
+    else
+      @companies = Rails.cache.fetch('companies')
+    end
   end
 
   def jobthm
