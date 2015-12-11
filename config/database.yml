@@ -23,9 +23,9 @@ default: &default
 
 development:
   <<: *default
-  database: ckrails
-  username: vagrant
-  password: vagrant
+  database: 'ckrails'
+  username: 'vagrant'
+  password: 'vagrant'
   host:     'localhost'
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -82,6 +82,6 @@ test:
 #
 production:
   <<: *default
-  database: ckrails
-  username: vagrant
-  password: vagrant
+  database: 'ckrails'
+  username: 'vagrant'
+  password: 'vagrant'
