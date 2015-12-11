@@ -220,9 +220,7 @@
                             <h5><span class="color-black"><%= @job.state.state_name %></span> - <span class="color-white-mute"><%= @job.city.city_name %></span></h5>
                             <p class="text-truncate "><%= @job.salary.salary_string %></p>
                             <div>
-                              <span class="color-white-mute time"><%= @job.created_at.to_date %></span> -
-                              <a href="#need-login" data-toggle="modal" class="btn btn-xs btn-theme btn-default">kirim profil</a> -
-                              <a href="#modal-email" data-toggle="modal"  class="btn btn-theme btn-xs btn-default">email</a>
+                              <span class="color-white-mute time"><%= @job.created_at.to_date %></span>
                             </div>
                           </div>
                           <div class="col-md-2">
