@@ -85,3 +85,4 @@ production:
   database: 'ckrails'
   username: 'vagrant'
   password: 'vagrant'
+  host:     'localhost'
