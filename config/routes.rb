@@ -75,11 +75,11 @@ Rails.application.routes.draw do
 
   # API ROUTES
 
-  get '/jwt' => 'jwt#test'
-  get '/jwt/decode' => 'jwt#decode'
-
-  get '/api/v1/jobs' => 'api_jobs#list'
-  get '/api/v1/subscribe' => 'subscribe#subscribe'
-
+  namespace :api do
+    namespace :v1 do
+      resources :job
+      post '/auth' => 'auth#request_token'
+    end
+  end
 
 end

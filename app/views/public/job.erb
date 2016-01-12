@@ -78,11 +78,11 @@
                 <% if @current.user_role == 'user' %>
                     <li class="link-btn"><a href="/basic"><span class="btn btn-theme btn-pill btn-xs btn-line">Dashboard</span></a></li>
                 <% else %>
-                    <li class="link-btn"><a href="<%= @current.user_role %>"><span class="btn btn-theme btn-pill btn-xs btn-line">Dashboard</span></a></li>
+                    <li class="link-btn"><a href="/<%= @current.user_role %>"><span class="btn btn-theme btn-pill btn-xs btn-line">Dashboard</span></a></li>
                 <% end %>
             <% end %>
 
-            <li class="link-btn"><a href="register.html"><span class="btn btn-theme  btn-pill btn-xs btn-line">Register</span></a></li>
+            <li class="link-btn"><a href="/register"><span class="btn btn-theme  btn-pill btn-xs btn-line">Register</span></a></li>
           </ul>
         </div>
       </div>
